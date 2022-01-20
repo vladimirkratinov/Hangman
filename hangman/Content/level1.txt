@@ -1,0 +1,3 @@
+CAT: meow
+DOG: woof
+APPLE: iPhone

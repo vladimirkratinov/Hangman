@@ -10,7 +10,15 @@ import Gifu
 
 class ViewController: UIViewController {
        
+    var levelContent = LevelContent()
+    
+    var hangmanGIF = GIFImageView()
+    var hangmanJPG: UIImageView!
+    
+    var counter: Int = 0
+    
     var levelLabel: UILabel!
+    var difficultyLabel: UILabel!
     var scoreLabel: UILabel!
     var mistakesLabel: UILabel!
     var hintLabel: UILabel!
@@ -20,11 +28,6 @@ class ViewController: UIViewController {
     var letterButtons = [UIButton]()
     var activatedButtons = [UIButton]()
     
-    var pictures = [String]()
-    var animatedPictures = [String]()
-    
-    var hints = [String]()
-    var solutions = [String]()
     var solutionLetters = [String]()
     var usedLetters = [String]()
     
@@ -33,10 +36,7 @@ class ViewController: UIViewController {
     var hintWord = ""
     
     let buttonsView = UIView()
-    
-    let hangmanGIF = GIFImageView()
-    var hangmanJPG: UIImageView!
-    
+
     var backgroundImageView: UIImageView = {
         let backgroundImageView = UIImageView(frame: .zero)
         backgroundImageView.image = UIImage(named: "BACK2")
@@ -44,13 +44,6 @@ class ViewController: UIViewController {
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         return backgroundImageView
     }()
-    
-    
-    let levelContents = """
-    CAT: meow-meow
-    DOG: woof-woof
-    """
-    let abc = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","🙈","V","W","X","Y","Z","🙉"]
     
     var score: Int = 0 {
         didSet {
@@ -63,7 +56,22 @@ class ViewController: UIViewController {
         }
     }
     
-    var hangmanCounter: Int = 0
+    var difficulLevelLabel: Int = 1 {
+        didSet {
+            switch difficulLevelLabel {
+            case 1:
+                difficultyLabel.text = "EASY"
+            case 2:
+                difficultyLabel.text = "NORMAL"
+            case 3:
+                difficultyLabel.text = "HARD"
+            case 4:
+                difficultyLabel.text = "DEAD"
+            default:
+                difficultyLabel.text = "EASY"
+            }
+        }
+    }
     
     //MARK: - loadView()
     
@@ -83,11 +91,19 @@ class ViewController: UIViewController {
 //        hangmanJPG.layer.borderWidth = 2
         hangmanJPG.alpha = 0.0
         view.addSubview(hangmanJPG)
+        
+        difficultyLabel = UILabel()
+        difficultyLabel.translatesAutoresizingMaskIntoConstraints = false
+        difficultyLabel.text = "EASY"
+        difficultyLabel.font = UIFont(name: "chalkduster", size: 20)
+        difficultyLabel.textAlignment = .center
+//        levelLabel.layer.borderWidth = 2
+        view.addSubview(difficultyLabel)
                 
         levelLabel = UILabel()
         levelLabel.translatesAutoresizingMaskIntoConstraints = false
         levelLabel.text = "Level: \(level)"
-        levelLabel.font = UIFont(name: "chalkduster", size: 18)
+        levelLabel.font = UIFont(name: "chalkduster", size: 16)
         levelLabel.textAlignment = .center
 //        levelLabel.layer.borderWidth = 2
         view.addSubview(levelLabel)
@@ -95,7 +111,7 @@ class ViewController: UIViewController {
         scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.text = "Score: \(score)"
-        scoreLabel.font = UIFont(name: "chalkduster", size: 18)
+        scoreLabel.font = UIFont(name: "chalkduster", size: 16)
         scoreLabel.textAlignment = .center
 //        scoreLabel.layer.borderWidth = 2
         view.addSubview(scoreLabel)
@@ -182,16 +198,21 @@ class ViewController: UIViewController {
             hangmanJPG.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 20),
             hangmanJPG.heightAnchor.constraint(equalToConstant: 200),
             hangmanJPG.widthAnchor.constraint(equalToConstant: 200),
+            
+            difficultyLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 160),
+            difficultyLabel.leadingAnchor.constraint(equalTo: hangmanGIF.trailingAnchor, constant: 30),
+            difficultyLabel.heightAnchor.constraint(equalToConstant: 50),
+            difficultyLabel.widthAnchor.constraint(equalToConstant: 120),
         
-            levelLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 240),
-            levelLabel.leadingAnchor.constraint(equalTo: hangmanGIF.trailingAnchor, constant: 50),
+            levelLabel.topAnchor.constraint(equalTo: difficultyLabel.bottomAnchor),
+            levelLabel.leadingAnchor.constraint(equalTo: hangmanGIF.trailingAnchor, constant: 30),
             levelLabel.heightAnchor.constraint(equalToConstant: 50),
-            levelLabel.widthAnchor.constraint(equalToConstant: 100),
+            levelLabel.widthAnchor.constraint(equalToConstant: 120),
             
             scoreLabel.topAnchor.constraint(equalTo: levelLabel.bottomAnchor),
-            scoreLabel.leadingAnchor.constraint(equalTo: hangmanGIF.trailingAnchor, constant: 50),
+            scoreLabel.leadingAnchor.constraint(equalTo: hangmanGIF.trailingAnchor, constant: 30),
             scoreLabel.heightAnchor.constraint(equalToConstant: 50),
-            scoreLabel.widthAnchor.constraint(equalToConstant: 100),
+            scoreLabel.widthAnchor.constraint(equalToConstant: 120),
             
             currentAnswer.topAnchor.constraint(equalTo: hangmanGIF.bottomAnchor, constant: 60),
             currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -220,63 +241,19 @@ class ViewController: UIViewController {
         performSelector(inBackground: #selector(gameLogic), with: nil)
     }
     
-    //MARK: - loadImages()
-    
-    func loadImages() {
-        let fm = FileManager.default
-        let path = Bundle.main.resourcePath!
-        
-            if let items = try? fm.contentsOfDirectory(atPath: path) {
-                
-                for item in items {
-                    if item.hasSuffix(".jpg") {
-                        pictures.append(item)
-                        pictures.sort()
-                    }
-                    if item.hasSuffix(".gif") {
-                        animatedPictures.append(item)
-                        animatedPictures.sort()
-                    }
-                }
-            }
-//        print("Pictures loaded: \(pictures)")
-//        print("GIFs loaded: \(animatedPictures)")
-    }
-    
     //MARK: - gameLogic()
     
     @objc func gameLogic() {
-        
-        loadImages()
-        
-        DispatchQueue.main.async {
-            self.hangmanJPG.alpha = 0
-            self.hangmanGIF.alpha = 0
-            self.hangmanJPG.image = nil
-            self.hangmanGIF.image = nil
-            print("prepare for reuse DONE!")
-        }
-        
-        var lines = levelContents.components(separatedBy: "\n")
-        lines.shuffle()
-        
-        for line in lines {
-            let parts = line.components(separatedBy: ": ")
-            let answer = parts[0]
-            let hint = parts[1]
-            
-            solutions.append(answer)
-            hints.append(hint)
-        }
+        levelContent.loadImages()
+        levelContent.loadDifficultyLevel()
         performSelector(onMainThread: #selector(updateUI), with: nil, waitUntilDone: false)
-        
     }
     
     //MARK: - updateUI()
     
     @objc func updateUI() {
-        solutionWord = solutions[level - 1]
-        hintWord = hints[level - 1]
+        solutionWord = levelContent.solutions[level - 1]
+        hintWord = levelContent.hints[level - 1]
         promptWord = ""
         
         for letter in solutionWord {
@@ -306,8 +283,10 @@ class ViewController: UIViewController {
             self.hintLabel.text = "Hint: \(self.hintWord)"
             
             //buttons ABC... titles
-            for i in 0..<self.abc.count {
-                self.letterButtons[i].setTitle(self.abc[i], for: .normal)
+            let abc = self.levelContent.loadAlphabet()
+    
+            for i in 0..<abc.count {
+                self.letterButtons[i].setTitle(abc[i], for: .normal)
             }
         }
     }
@@ -324,15 +303,17 @@ class ViewController: UIViewController {
             self?.hangmanGIF.alpha = 0
             self?.buttonsView.isHidden = false
             self?.level = 1
+            self?.levelContent.difficultyLevel = 1
+            self?.difficulLevelLabel = 1
             self?.score = 0
-            self?.hangmanCounter = 0
-            self?.solutions.removeAll()
-            self?.hints.removeAll()
+            self?.counter = 0
+            self?.levelContent.solutions.removeAll()
+            self?.levelContent.hints.removeAll()
             self?.solutionLetters.removeAll()
-            self?.pictures.removeAll()
-            self?.animatedPictures.removeAll()
+            self?.levelContent.pictures.removeAll()
+            self?.levelContent.animatedPictures.removeAll()
             self?.gameLogic()
-            print("RESTART TAPPED")
+//            print("RESTART TAPPED")
         }
     }
     
@@ -354,7 +335,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             self?.hintLabel.text = "Your score: \(self!.score)"
             self?.currentAnswer.text = "Congratulations!"
-            self?.hangmanGIF.animate(withGIFNamed: self!.animatedPictures[8])
+            self?.hangmanGIF.animate(withGIFNamed: self!.levelContent.animatedPictures[8])
             self?.hangmanGIF.updateImageIfNeeded()
             self?.hangmanJPG.alpha = 0
             self?.hangmanGIF.alpha = 1
@@ -369,20 +350,23 @@ class ViewController: UIViewController {
         activatedButtons.append(sender)
         usedLetters.append(buttonTitle)
         sender.isHidden = true
+//        print(levelContent.solutions)
+//        print(levelContent.hints)
+//        print("level: \(level)")
+//        print("solutionsCount: \(levelContent.solutions.count)")
+//        print(solutionLetters)
         
         let filteredSolutions = solutionLetters.filter {$0 == buttonTitle}
-//        print("Solution word: \(solutionWord)")
-//        print("SolutionLetters: \(solutionLetters)")
-//        print("Used Letters: \(usedLetters)")
-//        print("Filtered List: \(filteredSolutions)")
         
         //Checking filtered list for used letters
         if filteredSolutions.isEmpty {
-            performSelector(onMainThread: #selector(hangmanCounterOperating), with: nil, waitUntilDone: false)
-            print("wrong letter.")
-        } else {
-            print("correct letter.")
+            
+            DispatchQueue.main.async {
+                self.countingProcess()
+            }
         }
+        
+        //MARK: - if button correct letter:
         
         for (index, letter) in solutionWord.enumerated() {
             let strLetter = String(letter)
@@ -396,18 +380,31 @@ class ViewController: UIViewController {
                 
                 //words match check:
                 if promptWord == solutionWord {
-                    //levels finished check:
-                    if (level - 1) < (solutions.count - 1) {
-                        //next level
+                    
+                    if level >= (levelContent.solutions.count) {
+                        
+                        //difficultyLevel + 1
+                        if levelContent.difficultyLevel < 2 {
+                            levelContent.difficultyLevel += 1
+                            difficulLevelLabel += 1
+                            levelContent.loadDifficultyLevel()
+//                            print("LOAD DIFFICULTY +1")
+                        } else {
+                            //GAME OVER! WIN!
+                            let ac = UIAlertController(title: "Congratulations!", message: "Winner", preferredStyle: .alert)
+                            ac.addAction(UIAlertAction(title: "Finish", style: .destructive, handler: finishTapped))
+                            present(ac, animated: true)
+                        }
+                    }
+                    
+                    //next level
+                    if level < (levelContent.solutions.count) {
                         level += 1
+                        
                         //delete solution Letters for filtering:
                         solutionLetters.removeAll()
-                    } else {
-                        //game over(win)
-                        let ac = UIAlertController(title: "Congratulations!", message: "Winner", preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "Finish", style: .destructive, handler: finishTapped))
-                        present(ac, animated: true)
                     }
+
                     //updating UI after 1 second delay, to show the whole correct word
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.performSelector(onMainThread: #selector(self.updateUI), with: nil, waitUntilDone: false)
@@ -417,140 +414,78 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK: - hangmanCounterOperating()
+    //MARK: - hangmanCounter
     
-    @objc func hangmanCounterOperating() {
+    func animationPart() {
+       hangmanGIF.animate(withGIFNamed: levelContent.animatedPictures[counter - 1])
+       hangmanGIF.updateImageIfNeeded()
+       hangmanJPG.alpha = 0
+       hangmanGIF.alpha = 1
+   }
+   
+   func nextPicturePart() {
+       hangmanGIF.stopAnimatingGIF()
+       hangmanGIF.prepareForReuse()
+       hangmanGIF.alpha = 0
+       hangmanJPG.alpha = 1
+       hangmanJPG.image = UIImage(named: levelContent.pictures[counter - 1])
+   }
+    
+    func countingProcess() {
         
-        hangmanCounter += 1
+        counter += 1
         
-        switch hangmanCounter {
-        
+        switch counter {
         case 1:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 1")
-            hangmanGIF.updateImageIfNeeded()
-
+            animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                self.hangmanGIF.stopAnimatingGIF()
-                self.hangmanGIF.alpha = 0
-                self.hangmanJPG.image = UIImage(named: self.pictures[self.hangmanCounter - 1])
-                self.hangmanJPG.alpha = 1
-                self.hangmanGIF.prepareForReuse()
+                self.nextPicturePart()
             }
         case 2:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 2")
-            hangmanGIF.updateImageIfNeeded()
-
+            animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.hangmanGIF.stopAnimatingGIF()
-                self.hangmanGIF.alpha = 0
-                self.hangmanJPG.image = UIImage(named: self.pictures[self.hangmanCounter - 1])
-                self.hangmanJPG.alpha = 1
-                self.hangmanGIF.prepareForReuse()
+                self.nextPicturePart()
             }
         case 3:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 3")
-            hangmanGIF.updateImageIfNeeded()
-
+            animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                self.hangmanGIF.stopAnimatingGIF()
-                self.hangmanGIF.alpha = 0
-                self.hangmanJPG.image = UIImage(named: self.pictures[self.hangmanCounter - 1])
-                self.hangmanJPG.alpha = 1
-                self.hangmanGIF.prepareForReuse()
+                self.nextPicturePart()
             }
         case 4:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 4")
-            hangmanGIF.updateImageIfNeeded()
-
+            animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.hangmanGIF.stopAnimatingGIF()
-                self.hangmanGIF.alpha = 0
-                self.hangmanJPG.image = UIImage(named: self.pictures[self.hangmanCounter - 1])
-                self.hangmanJPG.alpha = 1
-                self.hangmanGIF.prepareForReuse()
+                self.nextPicturePart()
             }
         case 5:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 5")
-            hangmanGIF.updateImageIfNeeded()
-
+            animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                self.hangmanGIF.stopAnimatingGIF()
-                self.hangmanGIF.alpha = 0
-                self.hangmanJPG.image = UIImage(named: self.pictures[self.hangmanCounter - 1])
-                self.hangmanJPG.alpha = 1
-                self.hangmanGIF.prepareForReuse()
+                self.nextPicturePart()
             }
         case 6:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 6")
-            hangmanGIF.updateImageIfNeeded()
-
+            animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                self.hangmanGIF.stopAnimatingGIF()
-                self.hangmanGIF.alpha = 0
-                self.hangmanJPG.image = UIImage(named: self.pictures[self.hangmanCounter - 1])
-                self.hangmanJPG.alpha = 1
-                self.hangmanGIF.prepareForReuse()
+                self.nextPicturePart()
             }
         case 7:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 7")
-            hangmanGIF.updateImageIfNeeded()
-
+            animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                self.hangmanGIF.stopAnimatingGIF()
-                self.hangmanGIF.alpha = 0
-                self.hangmanJPG.image = UIImage(named: self.pictures[self.hangmanCounter - 1])
-                self.hangmanJPG.alpha = 1
-                self.hangmanGIF.prepareForReuse()
+                self.nextPicturePart()
             }
         case 8:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 8")
-            hangmanGIF.updateImageIfNeeded()
-
+            animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.hangmanGIF.stopAnimatingGIF()
-                self.hangmanGIF.alpha = 0
-                self.hangmanJPG.image = UIImage(named: self.pictures[self.hangmanCounter - 1])
-                self.hangmanJPG.alpha = 1
-                self.hangmanGIF.prepareForReuse()
+                self.nextPicturePart()
             }
         case 9:
             //GAME OVER:
-            hangmanGIF.animate(withGIFNamed: animatedPictures[hangmanCounter - 1])
-            hangmanJPG.alpha = 0
-            hangmanGIF.alpha = 1
-            print("hangmanCounter in SWITCH condition = 9")
-            hangmanGIF.updateImageIfNeeded()
-            
+            animationPart()
+
             let ac = UIAlertController(title: "GAME OVER", message: "You Lost :(", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Restart", style: .default, handler: gameOverTapped))
-            present(ac, animated: true)
+            self.present(ac, animated: true)
 
         default:
-            print("hangmanCounter in SWITCH condition = 0")
+            print("default")
         }
     }
 }
