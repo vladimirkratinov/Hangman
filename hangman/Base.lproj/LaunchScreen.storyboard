@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UOf-dp-17a">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="doM-51-qKM">
+            <objects>
+                <viewController id="UOf-dp-17a" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TNB-nJ-SKw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch_Screen.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="nDY-YW-23u">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="nDY-YW-23u" secondAttribute="height" multiplier="207:448" id="gZi-X7-diY"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hangman v. 0.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfk-ke-C1F">
+                                <rect key="frame" x="41" y="795" width="311" height="67"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tdD-4M-GHW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="nDY-YW-23u" secondAttribute="bottom" id="EFe-4n-gAi"/>
+                            <constraint firstItem="nDY-YW-23u" firstAttribute="leading" secondItem="tdD-4M-GHW" secondAttribute="leading" id="Kcb-gg-1Lv"/>
+                            <constraint firstItem="nDY-YW-23u" firstAttribute="top" secondItem="TNB-nJ-SKw" secondAttribute="top" id="Li4-nZ-EoE"/>
+                            <constraint firstItem="nDY-YW-23u" firstAttribute="trailing" secondItem="tdD-4M-GHW" secondAttribute="trailing" id="TFm-ie-LgV"/>
+                            <constraint firstItem="mfk-ke-C1F" firstAttribute="top" secondItem="tdD-4M-GHW" secondAttribute="top" constant="751" id="X85-eu-CFD"/>
+                            <constraint firstItem="mfk-ke-C1F" firstAttribute="bottom" secondItem="tdD-4M-GHW" secondAttribute="bottom" id="bW9-DN-gzx"/>
+                            <constraint firstItem="tdD-4M-GHW" firstAttribute="trailing" secondItem="mfk-ke-C1F" secondAttribute="trailing" constant="62" id="iFr-Wp-KfW"/>
+                            <constraint firstItem="mfk-ke-C1F" firstAttribute="leading" secondItem="tdD-4M-GHW" secondAttribute="leading" constant="41" id="twc-XN-xWS"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bXM-FA-AgQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-462.31884057971018" y="142.63392857142856"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Launch_Screen.jpeg" width="1284" height="2778"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
