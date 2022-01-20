@@ -1,3 +1,22 @@
-GEORGE: Floyd
-SAM: Smith
-ROGER: That
+ACCURATE: correct
+FOREVER: always
+DIFFICULT: hard
+MISTAKE: error
+JOURNEY: trip
+UNHAPPY: sad
+CONNECT: join
+EXPLAIN: clarify
+SELECT: choose
+OPPORTUNITY: chance
+BEAUTIFUL: pretty
+WEALTHY: rich
+SINCERE: honest
+UNLUCKY: unfortunate
+INCORRECT: wrong
+AUTHOR: writer
+LETHAL: deadly
+LITURGY: holy sacrament
+ABILITY: skill
+ARRIVE: reach
+AMATEUR: novice
+OBJECT: thing

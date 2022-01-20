@@ -32,21 +32,28 @@ struct LevelContent {
         
         if let levelFileURL = Bundle.main.url(forResource: "level\(difficultyLevel)", withExtension: "txt") {
             if let levelContents = try? String(contentsOf: levelFileURL) {
-
                 var lines = levelContents.components(separatedBy: "\n")
                 lines.shuffle()
+//                lines.sort()
+//                print(lines)
+//                print(lines.count)
                 
                 for line in lines {
                     let parts = line.components(separatedBy: ": ")
                     let answer = parts[0]
                     let hint = parts[1]
+//                    print(answer ?? "answer-NIL","-", hint ?? "hint-NIL")
                     
-                    self.solutions.append(answer)
-                    self.hints.append(hint)
+                    solutions.append(answer)
+                    hints.append(hint)
+                    
+                    
                 }
             }
-        }  
+        }
+//        print("loadDifficultyLevel method: WORKED")
     }
+    
     
     //MARK: - loadImages
     
@@ -69,3 +76,9 @@ struct LevelContent {
         }
     }    
 }
+
+//extension Collection where Indices.Iterator.Element == Index {
+//    public subscript(safe index: Index) -> Iterator.Element? {
+//        return (startIndex <= index && index < endIndex) ? self[index] : nil
+//    }
+//}

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E17F037B2C9EAA41C8D940C9 /* Pods_hangman.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B7FBAD8BBE2FBD080E4DCE /* Pods_hangman.framework */; };
 		F74F6A6227967424008CE931 /* CookieMonster.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F74F6A6127967424008CE931 /* CookieMonster.jpeg */; };
-		F75DBD0027984A0D00C52A68 /* Launch_Screen.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F75DBCFF27984A0D00C52A68 /* Launch_Screen.jpeg */; };
 		F78C63542795939C00F047DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63532795939C00F047DF /* AppDelegate.swift */; };
 		F78C63562795939C00F047DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63552795939C00F047DF /* SceneDelegate.swift */; };
 		F78C63582795939C00F047DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63572795939C00F047DF /* ViewController.swift */; };
@@ -20,6 +19,9 @@
 		F7D87D0827992FCD004880AF /* alphabet.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D0627992FCD004880AF /* alphabet.txt */; };
 		F7D87D0927992FCD004880AF /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D0727992FCD004880AF /* level1.txt */; };
 		F7D87D12279942D1004880AF /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D11279942D1004880AF /* level2.txt */; };
+		F7D87D1B27996B8D004880AF /* level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D1927996B8D004880AF /* level3.txt */; };
+		F7D87D1C27996B8D004880AF /* level4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D1A27996B8D004880AF /* level4.txt */; };
+		F7D87D2027996FDA004880AF /* Launch_Screen.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D1F27996FDA004880AF /* Launch_Screen.jpeg */; };
 		F7E8D3BB2797E778003D2F6D /* frame5.gif in Resources */ = {isa = PBXBuildFile; fileRef = F7E8D3A82797E778003D2F6D /* frame5.gif */; };
 		F7E8D3BC2797E778003D2F6D /* frame4.gif in Resources */ = {isa = PBXBuildFile; fileRef = F7E8D3A92797E778003D2F6D /* frame4.gif */; };
 		F7E8D3BD2797E778003D2F6D /* frame6.gif in Resources */ = {isa = PBXBuildFile; fileRef = F7E8D3AA2797E778003D2F6D /* frame6.gif */; };
@@ -46,7 +48,6 @@
 		22D3FB4B7D9A3183832D6582 /* Pods-hangman.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hangman.debug.xcconfig"; path = "Target Support Files/Pods-hangman/Pods-hangman.debug.xcconfig"; sourceTree = "<group>"; };
 		98B7FBAD8BBE2FBD080E4DCE /* Pods_hangman.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hangman.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F74F6A6127967424008CE931 /* CookieMonster.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CookieMonster.jpeg; sourceTree = "<group>"; };
-		F75DBCFF27984A0D00C52A68 /* Launch_Screen.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Launch_Screen.jpeg; sourceTree = "<group>"; };
 		F78C63502795939C00F047DF /* hangman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hangman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F78C63532795939C00F047DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F78C63552795939C00F047DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +60,9 @@
 		F7D87D0627992FCD004880AF /* alphabet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = alphabet.txt; sourceTree = "<group>"; };
 		F7D87D0727992FCD004880AF /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
 		F7D87D11279942D1004880AF /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
+		F7D87D1927996B8D004880AF /* level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level3.txt; sourceTree = "<group>"; };
+		F7D87D1A27996B8D004880AF /* level4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level4.txt; sourceTree = "<group>"; };
+		F7D87D1F27996FDA004880AF /* Launch_Screen.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Launch_Screen.jpeg; sourceTree = "<group>"; };
 		F7E8D3A82797E778003D2F6D /* frame5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = frame5.gif; sourceTree = "<group>"; };
 		F7E8D3A92797E778003D2F6D /* frame4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = frame4.gif; sourceTree = "<group>"; };
 		F7E8D3AA2797E778003D2F6D /* frame6.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = frame6.gif; sourceTree = "<group>"; };
@@ -148,10 +152,12 @@
 				F7E8D3A72797E778003D2F6D /* gif */,
 				F7E8D3B12797E778003D2F6D /* jpg */,
 				F74F6A6127967424008CE931 /* CookieMonster.jpeg */,
-				F75DBCFF27984A0D00C52A68 /* Launch_Screen.jpeg */,
+				F7D87D1F27996FDA004880AF /* Launch_Screen.jpeg */,
 				F7D87D0627992FCD004880AF /* alphabet.txt */,
 				F7D87D0727992FCD004880AF /* level1.txt */,
 				F7D87D11279942D1004880AF /* level2.txt */,
+				F7D87D1927996B8D004880AF /* level3.txt */,
+				F7D87D1A27996B8D004880AF /* level4.txt */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -281,18 +287,20 @@
 				F7E8D3BB2797E778003D2F6D /* frame5.gif in Resources */,
 				F7E8D3CB2797E778003D2F6D /* frame2.jpg in Resources */,
 				F78C6360279593A700F047DF /* LaunchScreen.storyboard in Resources */,
+				F7D87D2027996FDA004880AF /* Launch_Screen.jpeg in Resources */,
 				F78C635D279593A700F047DF /* Assets.xcassets in Resources */,
 				F7E8D3C22797E778003D2F6D /* frame9.gif in Resources */,
 				F7E8D3C02797E778003D2F6D /* frame2.gif in Resources */,
 				F7E8D3BD2797E778003D2F6D /* frame6.gif in Resources */,
 				F7E8D3C62797E778003D2F6D /* frame5.jpg in Resources */,
+				F7D87D1B27996B8D004880AF /* level3.txt in Resources */,
 				F78C635B2795939D00F047DF /* Main.storyboard in Resources */,
 				F7E8D3C52797E778003D2F6D /* frame8.jpg in Resources */,
 				F7D87D0927992FCD004880AF /* level1.txt in Resources */,
 				F7E8D3C82797E778003D2F6D /* frame6.jpg in Resources */,
 				F74F6A6227967424008CE931 /* CookieMonster.jpeg in Resources */,
 				F7E8D3C72797E778003D2F6D /* frame4.jpg in Resources */,
-				F75DBD0027984A0D00C52A68 /* Launch_Screen.jpeg in Resources */,
+				F7D87D1C27996B8D004880AF /* level4.txt in Resources */,
 				F7D87D12279942D1004880AF /* level2.txt in Resources */,
 				F7E8D3CA2797E778003D2F6D /* frame3.jpg in Resources */,
 				F7E8D3C42797E778003D2F6D /* frame9.jpg in Resources */,

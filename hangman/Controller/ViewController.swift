@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             case 3:
                 difficultyLabel.text = "HARD"
             case 4:
-                difficultyLabel.text = "DEAD"
+                difficultyLabel.text = "EXTREME"
             default:
                 difficultyLabel.text = "EASY"
             }
@@ -239,22 +239,27 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         performSelector(inBackground: #selector(gameLogic), with: nil)
+        
     }
     
     //MARK: - gameLogic()
     
     @objc func gameLogic() {
-        levelContent.loadImages()
-        levelContent.loadDifficultyLevel()
-        performSelector(onMainThread: #selector(updateUI), with: nil, waitUntilDone: false)
+            levelContent.loadImages()
+            levelContent.loadDifficultyLevel()
+            performSelector(onMainThread: #selector(updateUI), with: nil, waitUntilDone: false)
     }
     
     //MARK: - updateUI()
     
     @objc func updateUI() {
+        //Index out of range(?)
         solutionWord = levelContent.solutions[level - 1]
         hintWord = levelContent.hints[level - 1]
         promptWord = ""
+//        print(levelContent.solutions)
+//        print(solutionWord)
+//        print(hintWord)
         
         for letter in solutionWord {
             let strLetter = String(letter)
@@ -284,7 +289,7 @@ class ViewController: UIViewController {
             
             //buttons ABC... titles
             let abc = self.levelContent.loadAlphabet()
-    
+            
             for i in 0..<abc.count {
                 self.letterButtons[i].setTitle(abc[i], for: .normal)
             }
@@ -320,6 +325,18 @@ class ViewController: UIViewController {
     //MARK: - restartTapped()
     
     @objc func restartTapped(_ sender: UIButton) {
+        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+
+            UIView.animate(withDuration: 2.0,
+                                       delay: 0,
+                                       usingSpringWithDamping: CGFloat(0.20),
+                                       initialSpringVelocity: CGFloat(6.0),
+                                       options: UIView.AnimationOptions.allowUserInteraction,
+                                       animations: {
+                                        sender.transform = CGAffineTransform.identity
+                },
+                                       completion: { Void in()  }
+            )
         resetLevel()
     }
     
@@ -346,15 +363,34 @@ class ViewController: UIViewController {
     //MARK: - letterTapped()
     
     @objc func letterTapped(_ sender: UIButton) {
+        
         guard let buttonTitle = sender.titleLabel?.text else { return }
         activatedButtons.append(sender)
         usedLetters.append(buttonTitle)
-        sender.isHidden = true
+        
+        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        UIView.animate(withDuration: 1.0,
+                                   delay: 0,
+                                   usingSpringWithDamping: CGFloat(1.0),
+                                   initialSpringVelocity: CGFloat(12.0),
+                                   options: UIView.AnimationOptions.allowUserInteraction,
+                                   animations: {
+                                    sender.transform = CGAffineTransform.identity
+            },
+                                   completion: { Void in()  }
+        )
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            
+            sender.isHidden = true
+        }
+        
 //        print(levelContent.solutions)
 //        print(levelContent.hints)
 //        print("level: \(level)")
 //        print("solutionsCount: \(levelContent.solutions.count)")
 //        print(solutionLetters)
+//        print(levelContent.solutions)
         
         let filteredSolutions = solutionLetters.filter {$0 == buttonTitle}
         
@@ -384,11 +420,12 @@ class ViewController: UIViewController {
                     if level >= (levelContent.solutions.count) {
                         
                         //difficultyLevel + 1
-                        if levelContent.difficultyLevel < 2 {
+                        if levelContent.difficultyLevel < 4 {
                             levelContent.difficultyLevel += 1
                             difficulLevelLabel += 1
                             levelContent.loadDifficultyLevel()
 //                            print("LOAD DIFFICULTY +1")
+            
                         } else {
                             //GAME OVER! WIN!
                             let ac = UIAlertController(title: "Congratulations!", message: "Winner", preferredStyle: .alert)
@@ -485,7 +522,7 @@ class ViewController: UIViewController {
             self.present(ac, animated: true)
 
         default:
-            print("default")
+            counter = 0
         }
     }
 }

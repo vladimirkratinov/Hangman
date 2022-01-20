@@ -1,0 +1,17 @@
+TOASTER: for cook bread
+ABYSS: deep space
+RELATION: existing connection
+CONNECTION: association
+CHEMISTRY: science
+ALGORITHM: mathematics
+UNKNOWN: not discovered
+MICROWAVE: oven
+PUZZLE: unsolved toy
+FRAUDULENT: fake
+MAINTAIN: to keep in existence
+FASCINATING: interesting
+LOCATION: region
+WAITRESS: diner employee
+CROSSWORD: popular puzzle
+GUITAR: musical instrument
+MASTER: guru

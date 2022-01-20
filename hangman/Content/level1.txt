@@ -1,3 +1,28 @@
 CAT: meow
 DOG: woof
 APPLE: iPhone
+JOKE: funny story
+FUN: amusement
+TETRIS: bricks game
+CHEESE: mouse food
+MILK: ask cow for
+SOAP: to wash
+WATER: liquid
+GAS: food for car
+EMPTY: blank
+MAGIC: supernatural
+GIFT: birthday
+TEST: check
+SCHOOL: house for kids
+DANCE: shake it
+BEAR: likes honey
+LION: king of animals
+ASK: question
+BAD: rotten
+START: begin
+HUGE: big
+CALM: peaceful
+DARK: shadowy
+IDEA: concept
+KEEP: hold
+LAZY: idle
