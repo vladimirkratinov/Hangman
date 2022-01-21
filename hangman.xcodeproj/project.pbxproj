@@ -23,7 +23,7 @@
 		F7403F98279A85870029C893 /* AudioFX.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7403F97279A85870029C893 /* AudioFX.swift */; };
 		F7403FAF279AC82D0029C893 /* Bomp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7403FAE279AC82D0029C893 /* Bomp.mp3 */; };
 		F7403FB6279ACA300029C893 /* Magic.wav in Resources */ = {isa = PBXBuildFile; fileRef = F7403FB5279ACA300029C893 /* Magic.wav */; };
-		F74CD49E279999C10028B993 /* launch.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F74CD49D279999C10028B993 /* launch.jpeg */; };
+		F74CD49E279999C10028B993 /* launchscreen_picture.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F74CD49D279999C10028B993 /* launchscreen_picture.jpeg */; };
 		F74F6A6227967424008CE931 /* CookieMonster.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F74F6A6127967424008CE931 /* CookieMonster.jpeg */; };
 		F78C63542795939C00F047DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63532795939C00F047DF /* AppDelegate.swift */; };
 		F78C63562795939C00F047DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63552795939C00F047DF /* SceneDelegate.swift */; };
@@ -77,7 +77,7 @@
 		F7403F97279A85870029C893 /* AudioFX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFX.swift; sourceTree = "<group>"; };
 		F7403FAE279AC82D0029C893 /* Bomp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bomp.mp3; sourceTree = "<group>"; };
 		F7403FB5279ACA300029C893 /* Magic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Magic.wav; sourceTree = "<group>"; };
-		F74CD49D279999C10028B993 /* launch.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch.jpeg; sourceTree = "<group>"; };
+		F74CD49D279999C10028B993 /* launchscreen_picture.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launchscreen_picture.jpeg; sourceTree = "<group>"; };
 		F74F6A6127967424008CE931 /* CookieMonster.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CookieMonster.jpeg; sourceTree = "<group>"; };
 		F78C63502795939C00F047DF /* hangman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hangman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F78C63532795939C00F047DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 				F7E8D3A72797E778003D2F6D /* gif */,
 				F7E8D3B12797E778003D2F6D /* jpg */,
 				F74F6A6127967424008CE931 /* CookieMonster.jpeg */,
-				F74CD49D279999C10028B993 /* launch.jpeg */,
+				F74CD49D279999C10028B993 /* launchscreen_picture.jpeg */,
 				F7D87D0627992FCD004880AF /* alphabet.txt */,
 				F7D87D0727992FCD004880AF /* level1.txt */,
 				F7D87D11279942D1004880AF /* level2.txt */,
@@ -370,7 +370,7 @@
 				F7E8D3C32797E778003D2F6D /* frame8.gif in Resources */,
 				F7403F8B279A7CE30029C893 /* WoodHit_2.wav in Resources */,
 				F7E8D3BC2797E778003D2F6D /* frame4.gif in Resources */,
-				F74CD49E279999C10028B993 /* launch.jpeg in Resources */,
+				F74CD49E279999C10028B993 /* launchscreen_picture.jpeg in Resources */,
 				F7E8D3C92797E778003D2F6D /* frame7.jpg in Resources */,
 				F7403F94279A7E120029C893 /* test_level4.txt in Resources */,
 				F7403F6C279A6DA50029C893 /* Boing.mp3 in Resources */,

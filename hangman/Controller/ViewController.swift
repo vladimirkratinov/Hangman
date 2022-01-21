@@ -12,13 +12,10 @@ import AVFoundation
 class ViewController: UIViewController {
     
     var audioFX = AudioFX()
-       
     var levelContent = LevelContent()
     
     var hangmanGIF = GIFImageView()
     var hangmanJPG: UIImageView!
-    
-    var counter: Int = 0
     
     var levelLabel: UILabel!
     var difficultyLabel: UILabel!
@@ -53,7 +50,10 @@ class ViewController: UIViewController {
         return backgroundImageView
     }()
     
-    var hintCounter: Int = 7 {
+    var insideIndex = 0
+    var counter: Int = 0
+    
+    var hintCounter: Int = 99 {
         didSet {
             hintButton.setTitle("Hint (\(hintCounter))", for: .normal)
         }
@@ -103,6 +103,11 @@ class ViewController: UIViewController {
         muteButton.layer.shadowOpacity = 1.0
         muteButton.tintColor = UIColor.white
         muteButton.backgroundColor = UIColor.orange
+        
+        //shadows rasterization
+        muteButton.layer.shouldRasterize = true
+        muteButton.layer.rasterizationScale = UIScreen.main.scale
+        
         muteButton.addTarget(self, action: #selector(muteTapped), for: .touchUpInside)
         view.addSubview(muteButton)
         
@@ -160,6 +165,11 @@ class ViewController: UIViewController {
         hintButton.layer.shadowOffset = CGSize(width: 5, height: 5)
         hintButton.layer.shadowRadius = 1
         hintButton.layer.shadowOpacity = 1.0
+        
+        //shadows rasterization
+        hintButton.layer.shouldRasterize = true
+        hintButton.layer.rasterizationScale = UIScreen.main.scale
+        
         hintButton.tintColor = UIColor.white
         hintButton.backgroundColor = UIColor.orange
         hintButton.addTarget(self, action: #selector(hintTapped), for: .touchUpInside)
@@ -173,6 +183,11 @@ class ViewController: UIViewController {
         restartButton.layer.shadowOffset = CGSize(width: 5, height: 5)
         restartButton.layer.shadowRadius = 1
         restartButton.layer.shadowOpacity = 1.0
+        
+        //shadows rasterization
+        restartButton.layer.shouldRasterize = true
+        restartButton.layer.rasterizationScale = UIScreen.main.scale
+        
         restartButton.tintColor = UIColor.white
         restartButton.backgroundColor = UIColor.orange
         restartButton.addTarget(self, action: #selector(restartTapped), for: .touchUpInside)
@@ -180,7 +195,6 @@ class ViewController: UIViewController {
         
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonsView)
-        
         
         let width = 50
         let height = 50
@@ -197,6 +211,11 @@ class ViewController: UIViewController {
                 letterButton.layer.shadowOffset = CGSize(width: 5, height: 5)
                 letterButton.layer.shadowRadius = 1
                 letterButton.layer.shadowOpacity = 1.0
+                
+                //shadows rasterization
+                letterButton.layer.shouldRasterize = true
+                letterButton.layer.rasterizationScale = UIScreen.main.scale
+                
                 letterButton.titleLabel?.font = UIFont(name: "chalkduster", size: 30)
                 letterButton.tintColor = UIColor.black
                 letterButton.backgroundColor = customColor
@@ -215,6 +234,7 @@ class ViewController: UIViewController {
                 restartButton.layer.borderWidth = 2
                 hintButton.layer.borderWidth = 2
                 
+                //optional borders:
 //                buttonsView.layer.borderWidth = 2
 //                hangmanGIF.layer.borderWidth = 2
 //                hangmanJPG.layer.borderWidth = 2
@@ -223,6 +243,8 @@ class ViewController: UIViewController {
 //                scoreLabel.layer.borderWidth = 2
 //                currentAnswer.layer.borderWidth = 2
 //                hintLabel.layer.borderWidth = 2
+//                restartButton.layer.borderWidth = 2
+//                hintButton.layer.borderWidth = 2
                 
             }
         }
@@ -310,14 +332,13 @@ class ViewController: UIViewController {
     //MARK: - updateUI()
     
     @objc func updateUI() {
-        //Index out of range(?)
+        
         resetABCbuttons()
+        
         solutionWord = levelContent.solutions[level - 1]
         hintWord = levelContent.hints[level - 1]
+        
         promptWord = ""
-//        print(levelContent.solutions)
-//        print(solutionWord)
-//        print(hintWord)
         
         for letter in solutionWord {
             let strLetter = String(letter)
@@ -358,26 +379,30 @@ class ViewController: UIViewController {
     
     func resetLevel() {
         hangmanGIF.stopAnimatingGIF()
-        hangmanGIF.updateImageIfNeeded()
+        hangmanGIF.prepareForReuse()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [ weak self ] in
             self?.hangmanJPG.image = nil
             self?.hangmanGIF.image = nil
             self?.hangmanJPG.alpha = 0
             self?.hangmanGIF.alpha = 0
-            self?.buttonsView.isHidden = false
+            
             self?.level = 1
             self?.levelContent.difficultyLevel = 1
             self?.difficulLevelLabel = 1
             self?.score = 0
             self?.counter = 0
-            self?.hintCounter = 5
+            self?.hintCounter = 7
+            
             self?.levelContent.solutions.removeAll()
             self?.levelContent.hints.removeAll()
             self?.solutionLetters.removeAll()
             self?.levelContent.pictures.removeAll()
             self?.levelContent.animatedPictures.removeAll()
+            
             self?.gameLogic()
             self?.resetABCbuttons()
+            
+            self?.buttonsView.isHidden = false
             self?.hintButton.isHidden = false
             }
         }
@@ -402,8 +427,8 @@ class ViewController: UIViewController {
             try? self.audioFX.playAudio(sender)
         }
         
+        //animation
         sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-
             UIView.animate(withDuration: 2.0,
                                        delay: 0,
                                        usingSpringWithDamping: CGFloat(0.20),
@@ -434,20 +459,23 @@ class ViewController: UIViewController {
     //MARK: - hintTapped()
     
     @objc func hintTapped(_ sender: UIButton) {
+        
         //audioFX
         try? audioFX.openFile(file: "RubberDuck", type: "wav")
-
+        
         guard let randomLetter = solutionWord.randomElement() else { return }
         let randomString = String(randomLetter)
         let abc = levelContent.loadAlphabet()
-        
+
+        //hide button when hints finished
         if hintCounter < 2 {
             sender.isHidden = true
+            //audioFX
             try? audioFX.openFile(file: "Bomp", type: "mp3")
         }
         
         //check hint conditions:
-        if !usedLetters.contains(randomString){
+        if  !usedLetters.contains(randomString){
             usedLetters.append(randomString)
             score += 1
             hintCounter -= 1
@@ -459,32 +487,39 @@ class ViewController: UIViewController {
                     letterButtons[i].isHidden = true
                 }
             }
-        }
-        //showing random letter in promptWord
-        for (index, letter) in solutionWord.enumerated() {
-            let strLetter = String(letter)
             
-            if usedLetters.contains(strLetter) {
+            //showing random letter in promptWord
+            for (index, letter) in solutionWord.enumerated() {
+                let strLetter = String(letter)
+                
+                if  usedLetters.contains(strLetter) {
                     let i = promptWord.index(promptWord.startIndex, offsetBy: index)
                     promptWord.remove(at: i)
                     promptWord.insert(contentsOf: String(strLetter), at: i)
                     currentAnswer.text = promptWord
+                }
             }
-        }
+            insideIndex += 1
+            
+            print(insideIndex)
+            print("Used Letters: \(usedLetters)")
+            print("Solution Word: \(solutionWord)")
+            print("Random Letter: \(randomString)")
+            
         
-//        print("Solution Word: \(solutionWord)")
-//        print("Random Letter: \(randomString)")
-//        print("Used Letters: \(usedLetters)")
-        
-        //checkIfWOrdsAreEqual()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.checkIfWordsAreEqual()
+            //Check if words are equal:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.checkIfWordsAreEqual()
+            }
         }
     }
        
     //MARK: - letterTapped()
     
     @objc func letterTapped(_ sender: UIButton) {
+        
+//        hangmanGIF.prepareForReuse()
+        
         //tag for audioFX
         sender.tag = 1
         //AudioFX
@@ -531,7 +566,7 @@ class ViewController: UIViewController {
             }
         }
         
-        //MARK: - if buttonTitle.contains(letter):
+        //MARK: - if contains letter:
         
         for (index, letter) in solutionWord.enumerated() {
             let strLetter = String(letter)
@@ -549,22 +584,21 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK: - hangmanCounter
+    //MARK: - counter:
     
     func animationPart() {
-       hangmanGIF.animate(withGIFNamed: levelContent.animatedPictures[counter - 1])
-       hangmanGIF.updateImageIfNeeded()
-       hangmanJPG.alpha = 0
-       hangmanGIF.alpha = 1
-   }
+        hangmanJPG.alpha = 0
+        hangmanGIF.alpha = 1
+        hangmanGIF.animate(withGIFNamed: levelContent.animatedPictures[counter - 1])
+    }
    
-   func nextPicturePart() {
-       hangmanGIF.stopAnimatingGIF()
-       hangmanGIF.prepareForReuse()
-       hangmanGIF.alpha = 0
-       hangmanJPG.alpha = 1
-       hangmanJPG.image = UIImage(named: levelContent.pictures[counter - 1])
-   }
+    func nextPicturePart() {
+        hangmanJPG.image = UIImage(named: levelContent.pictures[counter - 1])
+        hangmanGIF.stopAnimatingGIF()
+        hangmanGIF.prepareForReuse()
+        hangmanGIF.alpha = 0
+        hangmanJPG.alpha = 1
+    }
     
     func countingProcess() {
         
@@ -608,27 +642,29 @@ class ViewController: UIViewController {
             }
         case 8:
             animationPart()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.nextPicturePart()
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                self.nextPicturePart()
+//            }
         case 9:
             //MARK: - GAME OVER (LOST)
+            //audioFX
+            try? audioFX.openFile(file: "DrumsetFalling", type: "mp3")
+            
             animationPart()
             
-            //audioFX
-            DispatchQueue.global(qos: .background).async {
-                try? self.audioFX.openFile(file: "DrumsetFalling", type: "mp3")
-            }
+            hintLabel.text = "Your score: \(score)"
+            currentAnswer.text = "You Lost!"
+            buttonsView.isHidden = true
+            hintButton.isHidden = true
             
-            DispatchQueue.main.async { [weak self] in
-                self?.hintLabel.text = "Your score: \(self!.score)"
-                self?.currentAnswer.text = "You Lost!"
-                self?.hangmanGIF.animate(withGIFNamed: self!.levelContent.animatedPictures[8])
-                self?.hangmanGIF.updateImageIfNeeded()
-                self?.hangmanJPG.alpha = 0
-                self?.hangmanGIF.alpha = 1
-                self?.buttonsView.isHidden = true
-            }
+//            NSLayoutConstraint.activate([
+//
+//                restartButton.topAnchor.constraint(equalTo: buttonsView.bottomAnchor, constant: 20),
+//                restartButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+//                restartButton.widthAnchor.constraint(equalToConstant: 100),
+//                restartButton.heightAnchor.constraint(equalToConstant: 50),
+//            ])
+            
             
         default:
             counter = 0
@@ -652,6 +688,7 @@ class ViewController: UIViewController {
     
                 } else {
                     //MARK: - GAME OVER (WIN)
+                    
                     DispatchQueue.main.async { [weak self] in
                         self?.hintLabel.text = "Your score: \(self!.score)"
                         self?.currentAnswer.text = "WINNER!"
@@ -660,6 +697,7 @@ class ViewController: UIViewController {
                         self?.hangmanJPG.alpha = 0
                         self?.hangmanGIF.alpha = 1
                         self?.buttonsView.isHidden = true
+                        self?.hintButton.isHidden = true
                     }
                 }
             }
