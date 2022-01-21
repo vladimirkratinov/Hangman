@@ -15,7 +15,7 @@ struct LevelContent {
     var pictures = [String]()
     var animatedPictures = [String]()
     
-    var difficultyLevel: Int = 4
+    var difficultyLevel: Int = 1
     
     //MARK: - loadAlphabet
     
@@ -30,7 +30,7 @@ struct LevelContent {
     
     mutating func loadDifficultyLevel() {
         
-        if let levelFileURL = Bundle.main.url(forResource: "test_level\(difficultyLevel)", withExtension: "txt") {
+        if let levelFileURL = Bundle.main.url(forResource: "level\(difficultyLevel)", withExtension: "txt") {
             if let levelContents = try? String(contentsOf: levelFileURL) {
                 var lines = levelContents.components(separatedBy: "\n")
                 lines.shuffle()

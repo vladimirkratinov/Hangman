@@ -31,6 +31,11 @@ class ViewController: UIViewController {
     var letterButtons = [UIButton]()
     var activatedButtons = [UIButton]()
     
+    var letterButton = HighlightedButtonOrange(type: .system)
+    var muteButton = HighlightedButtonRed(type: .system)
+    var restartButton = HighlightedButtonRed(type: .system)
+    var hintButton = HighlightedButtonRed(type: .system)
+    
     var solutionLetters = [String]()
     var usedLetters = [String]()
     
@@ -47,6 +52,12 @@ class ViewController: UIViewController {
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         return backgroundImageView
     }()
+    
+    var hintCounter: Int = 7 {
+        didSet {
+            hintButton.setTitle("Hint (\(hintCounter))", for: .normal)
+        }
+    }
     
     var score: Int = 0 {
         didSet {
@@ -80,19 +91,28 @@ class ViewController: UIViewController {
     
     override func loadView() {
         view = UIView()
-        view.backgroundColor = .white
         
         view.insertSubview(backgroundImageView, at: 0)
-                
+        
+        muteButton.translatesAutoresizingMaskIntoConstraints = false
+        muteButton.setImage(UIImage(systemName: "speaker"), for: .normal)
+        muteButton.layer.cornerRadius = 10
+        muteButton.layer.shadowColor = UIColor.black.cgColor
+        muteButton.layer.shadowOffset = CGSize(width: 5, height: 5)
+        muteButton.layer.shadowRadius = 1
+        muteButton.layer.shadowOpacity = 1.0
+        muteButton.tintColor = UIColor.white
+        muteButton.backgroundColor = UIColor.orange
+        muteButton.addTarget(self, action: #selector(muteTapped), for: .touchUpInside)
+        view.addSubview(muteButton)
+        
         hangmanGIF.translatesAutoresizingMaskIntoConstraints = false
-//        hangmanGIF.layer.borderWidth = 2
         hangmanGIF.alpha = 1
         view.addSubview(hangmanGIF)
         
         hangmanJPG = UIImageView()
         hangmanJPG.translatesAutoresizingMaskIntoConstraints = false
-//        hangmanJPG.layer.borderWidth = 2
-        hangmanJPG.alpha = 0.0
+        hangmanJPG.alpha = 0
         view.addSubview(hangmanJPG)
         
         difficultyLabel = UILabel()
@@ -100,7 +120,6 @@ class ViewController: UIViewController {
         difficultyLabel.text = "EASY"
         difficultyLabel.font = UIFont(name: "chalkduster", size: 20)
         difficultyLabel.textAlignment = .center
-//        levelLabel.layer.borderWidth = 2
         view.addSubview(difficultyLabel)
                 
         levelLabel = UILabel()
@@ -108,7 +127,6 @@ class ViewController: UIViewController {
         levelLabel.text = "Level: \(level)"
         levelLabel.font = UIFont(name: "chalkduster", size: 16)
         levelLabel.textAlignment = .center
-//        levelLabel.layer.borderWidth = 2
         view.addSubview(levelLabel)
         
         scoreLabel = UILabel()
@@ -116,7 +134,6 @@ class ViewController: UIViewController {
         scoreLabel.text = "Score: \(score)"
         scoreLabel.font = UIFont(name: "chalkduster", size: 16)
         scoreLabel.textAlignment = .center
-//        scoreLabel.layer.borderWidth = 2
         view.addSubview(scoreLabel)
         
         currentAnswer = UITextField()
@@ -124,7 +141,6 @@ class ViewController: UIViewController {
         currentAnswer.text = "COOKIE"
         currentAnswer.font = UIFont(name: "chalkduster", size: 30)
         currentAnswer.textAlignment = .center
-//        currentAnswer.layer.borderWidth = 2
         currentAnswer.font = UIFont.systemFont(ofSize: 40)
         currentAnswer.isUserInteractionEnabled = false
         view.addSubview(currentAnswer)
@@ -134,14 +150,24 @@ class ViewController: UIViewController {
         hintLabel.text = "Hint: There will be a hit"
         hintLabel.font = UIFont(name: "chalkduster", size: 15)
         hintLabel.textAlignment = .center
-//        hintLabel.layer.borderWidth = 2
         view.addSubview(hintLabel)
         
-        let restartButton = HighlightedButtonRed(type: .system)
+        hintButton.translatesAutoresizingMaskIntoConstraints = false
+        hintButton.setTitle("Hint (\(hintCounter))", for: .normal)
+        hintButton.titleLabel?.font = UIFont(name: "chalkduster", size: 20)
+        hintButton.layer.cornerRadius = 10
+        hintButton.layer.shadowColor = UIColor.black.cgColor
+        hintButton.layer.shadowOffset = CGSize(width: 5, height: 5)
+        hintButton.layer.shadowRadius = 1
+        hintButton.layer.shadowOpacity = 1.0
+        hintButton.tintColor = UIColor.white
+        hintButton.backgroundColor = UIColor.orange
+        hintButton.addTarget(self, action: #selector(hintTapped), for: .touchUpInside)
+        view.addSubview(hintButton)
+        
         restartButton.translatesAutoresizingMaskIntoConstraints = false
         restartButton.setTitle("Restart", for: .normal)
         restartButton.titleLabel?.font = UIFont(name: "chalkduster", size: 20)
-        restartButton.layer.borderWidth = 2
         restartButton.layer.cornerRadius = 10
         restartButton.layer.shadowColor = UIColor.black.cgColor
         restartButton.layer.shadowOffset = CGSize(width: 5, height: 5)
@@ -153,18 +179,19 @@ class ViewController: UIViewController {
         view.addSubview(restartButton)
         
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
-//        buttonsView.layer.borderWidth = 1
         view.addSubview(buttonsView)
+        
         
         let width = 50
         let height = 50
         
         for row in 0..<4 {
             for column in 0..<7 {
-                let letterButton = HighlightedButtonOrange(type: .system)
+                let customColor = UIColor(red: 0.10, green: 0.74, blue: 0.61, alpha: 1.00)
+                letterButton = HighlightedButtonOrange(type: .system)
                 letterButton.setTitle("W", for: .normal)
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-                letterButton.layer.borderWidth = 1
+                letterButton.layer.borderWidth = 2
                 letterButton.layer.cornerRadius = 15
                 letterButton.layer.shadowColor = UIColor.black.cgColor
                 letterButton.layer.shadowOffset = CGSize(width: 5, height: 5)
@@ -172,7 +199,7 @@ class ViewController: UIViewController {
                 letterButton.layer.shadowOpacity = 1.0
                 letterButton.titleLabel?.font = UIFont(name: "chalkduster", size: 30)
                 letterButton.tintColor = UIColor.black
-                letterButton.backgroundColor = UIColor(red: 0.10, green: 0.74, blue: 0.61, alpha: 1.00)
+                letterButton.backgroundColor = customColor
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
                 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
@@ -180,6 +207,23 @@ class ViewController: UIViewController {
                 
                 buttonsView.addSubview(letterButton)
                 letterButtons.append(letterButton)
+                
+                
+                //MARK: - borders
+                
+                muteButton.layer.borderWidth = 2
+                restartButton.layer.borderWidth = 2
+                hintButton.layer.borderWidth = 2
+                
+//                buttonsView.layer.borderWidth = 2
+//                hangmanGIF.layer.borderWidth = 2
+//                hangmanJPG.layer.borderWidth = 2
+//                difficultyLabel.layer.borderWidth = 2
+//                levelLabel.layer.borderWidth = 2
+//                scoreLabel.layer.borderWidth = 2
+//                currentAnswer.layer.borderWidth = 2
+//                hintLabel.layer.borderWidth = 2
+                
             }
         }
         
@@ -191,6 +235,11 @@ class ViewController: UIViewController {
             backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            muteButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            muteButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 170),
+            muteButton.heightAnchor.constraint(equalToConstant: 40),
+            muteButton.widthAnchor.constraint(equalToConstant: 40),
             
             hangmanGIF.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 140),
             hangmanGIF.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 20),
@@ -223,8 +272,13 @@ class ViewController: UIViewController {
             hintLabel.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor, constant: 10),
             hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
+            hintButton.topAnchor.constraint(equalTo: buttonsView.bottomAnchor, constant: 20),
+            hintButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: -70),
+            hintButton.widthAnchor.constraint(equalToConstant: 100),
+            hintButton.heightAnchor.constraint(equalToConstant: 50),
+            
             restartButton.topAnchor.constraint(equalTo: buttonsView.bottomAnchor, constant: 20),
-            restartButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            restartButton.leadingAnchor.constraint(equalTo: hintButton.trailingAnchor, constant: 40),
             restartButton.widthAnchor.constraint(equalToConstant: 100),
             restartButton.heightAnchor.constraint(equalToConstant: 50),
             
@@ -240,16 +294,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let pathToSound = Bundle.main.path(forResource: "background", ofType: "mp3")!
-//        let url = URL(fileURLWithPath: pathToSound)
-//
-//        do {
-//            audioPlayer = try AVAudioPlayer(contentsOf: url)
-//            audioPlayer?.play()
-//        } catch {
-//            print(error.localizedDescription)
-//        }
         
         performSelector(inBackground: #selector(gameLogic), with: nil)
         
@@ -267,6 +311,7 @@ class ViewController: UIViewController {
     
     @objc func updateUI() {
         //Index out of range(?)
+        resetABCbuttons()
         solutionWord = levelContent.solutions[level - 1]
         hintWord = levelContent.hints[level - 1]
         promptWord = ""
@@ -325,14 +370,26 @@ class ViewController: UIViewController {
             self?.difficulLevelLabel = 1
             self?.score = 0
             self?.counter = 0
+            self?.hintCounter = 5
             self?.levelContent.solutions.removeAll()
             self?.levelContent.hints.removeAll()
             self?.solutionLetters.removeAll()
             self?.levelContent.pictures.removeAll()
             self?.levelContent.animatedPictures.removeAll()
             self?.gameLogic()
-//            print("RESTART TAPPED")
+            self?.resetABCbuttons()
+            self?.hintButton.isHidden = false
+            }
         }
+    
+    //MARK: - resetABCbuttons()
+    
+    func resetABCbuttons() {
+        let abc = levelContent.loadAlphabet()
+        for (index, _) in abc.enumerated() {
+            let i = abc.index(abc.startIndex, offsetBy: index)
+            letterButtons[i].isHidden = false
+            }
     }
     
     //MARK: - restartTapped()
@@ -359,6 +416,71 @@ class ViewController: UIViewController {
             )
         resetLevel()
     }
+    
+    //MARK: - muteTapped()
+    
+    @objc func muteTapped(_ sender: UIButton) {
+        if sender.isSelected {
+            muteButton.setImage(UIImage(systemName: "speaker"), for: .selected)
+            sender.isSelected = false
+            audioFX.muted = false
+        } else {
+            muteButton.setImage(UIImage(systemName: "speaker.slash"), for: .selected)
+            sender.isSelected = true
+            audioFX.muted = true
+        }
+    }
+    
+    //MARK: - hintTapped()
+    
+    @objc func hintTapped(_ sender: UIButton) {
+        //audioFX
+        try? audioFX.openFile(file: "RubberDuck", type: "wav")
+
+        guard let randomLetter = solutionWord.randomElement() else { return }
+        let randomString = String(randomLetter)
+        let abc = levelContent.loadAlphabet()
+        
+        if hintCounter < 2 {
+            sender.isHidden = true
+            try? audioFX.openFile(file: "Bomp", type: "mp3")
+        }
+        
+        //check hint conditions:
+        if !usedLetters.contains(randomString){
+            usedLetters.append(randomString)
+            score += 1
+            hintCounter -= 1
+            
+            //hiding letterButton:
+            for (index, letter) in abc.enumerated() {
+                let i = abc.index(abc.startIndex, offsetBy: index)
+                if letter == randomString {
+                    letterButtons[i].isHidden = true
+                }
+            }
+        }
+        //showing random letter in promptWord
+        for (index, letter) in solutionWord.enumerated() {
+            let strLetter = String(letter)
+            
+            if usedLetters.contains(strLetter) {
+                    let i = promptWord.index(promptWord.startIndex, offsetBy: index)
+                    promptWord.remove(at: i)
+                    promptWord.insert(contentsOf: String(strLetter), at: i)
+                    currentAnswer.text = promptWord
+            }
+        }
+        
+//        print("Solution Word: \(solutionWord)")
+//        print("Random Letter: \(randomString)")
+//        print("Used Letters: \(usedLetters)")
+        
+        //checkIfWOrdsAreEqual()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.checkIfWordsAreEqual()
+        }
+    }
        
     //MARK: - letterTapped()
     
@@ -370,12 +492,7 @@ class ViewController: UIViewController {
             try? self.audioFX.playAudio(sender)
         }
         
-        guard let buttonTitle = sender.titleLabel?.text else { return }
-        activatedButtons.append(sender)
-        usedLetters.append(buttonTitle)
-        
-        
-        
+        //animation
         sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
         UIView.animate(withDuration: 1.0,
                                    delay: 0,
@@ -387,6 +504,11 @@ class ViewController: UIViewController {
             },
                                    completion: { Void in()  }
         )
+        
+        //buttonTitle
+        guard let buttonTitle = sender.titleLabel?.text else { return }
+        activatedButtons.append(sender)
+        usedLetters.append(buttonTitle)
         
         //hide tapped button after 0.3 sec
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -409,7 +531,7 @@ class ViewController: UIViewController {
             }
         }
         
-        //MARK: - if button = correct letter:
+        //MARK: - if buttonTitle.contains(letter):
         
         for (index, letter) in solutionWord.enumerated() {
             let strLetter = String(letter)
@@ -422,44 +544,7 @@ class ViewController: UIViewController {
                 score += 1
                 
                 //words match check:
-                if promptWord == solutionWord {
-                    
-                    if level >= (levelContent.solutions.count) {
-                        
-                        //difficultyLevel + 1
-                        if levelContent.difficultyLevel < 4 {
-                            levelContent.difficultyLevel += 1
-                            difficulLevelLabel += 1
-                            levelContent.loadDifficultyLevel()
-//                            print("LOAD DIFFICULTY +1")
-            
-                        } else {
-                            //MARK: - GAME OVER (WIN)
-                            DispatchQueue.main.async { [weak self] in
-                                self?.hintLabel.text = "Your score: \(self!.score)"
-                                self?.currentAnswer.text = "WINNER!"
-                                self?.hangmanGIF.animate(withGIFNamed: self!.levelContent.animatedPictures[8])
-                                self?.hangmanGIF.updateImageIfNeeded()
-                                self?.hangmanJPG.alpha = 0
-                                self?.hangmanGIF.alpha = 1
-                                self?.buttonsView.isHidden = true
-                            }
-                        }
-                    }
-                    
-                    //next level
-                    if level < (levelContent.solutions.count) {
-                        level += 1
-                        
-                        //delete solution Letters for filtering:
-                        solutionLetters.removeAll()
-                        
-                        //updating UI after 1 second delay, to show the whole correct word
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.performSelector(onMainThread: #selector(self.updateUI), with: nil, waitUntilDone: false)
-                        }
-                    }
-                }
+                checkIfWordsAreEqual()
             }
         }
     }
@@ -547,6 +632,55 @@ class ViewController: UIViewController {
             
         default:
             counter = 0
+        }
+    }
+    
+    //MARK: - checkIfWordsAreEqual
+    
+    func checkIfWordsAreEqual() {
+        //check if hintWord == correctWord:
+        if promptWord == solutionWord {
+            
+            if level >= (levelContent.solutions.count) {
+                
+                //difficultyLevel + 1
+                if levelContent.difficultyLevel < 4 {
+                    levelContent.difficultyLevel += 1
+                    difficulLevelLabel += 1
+                    levelContent.loadDifficultyLevel()
+//                            print("LOAD DIFFICULTY +1")
+    
+                } else {
+                    //MARK: - GAME OVER (WIN)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.hintLabel.text = "Your score: \(self!.score)"
+                        self?.currentAnswer.text = "WINNER!"
+                        self?.hangmanGIF.animate(withGIFNamed: self!.levelContent.animatedPictures[8])
+                        self?.hangmanGIF.updateImageIfNeeded()
+                        self?.hangmanJPG.alpha = 0
+                        self?.hangmanGIF.alpha = 1
+                        self?.buttonsView.isHidden = true
+                    }
+                }
+            }
+            
+            //next level
+            if level < (levelContent.solutions.count) {
+                level += 1
+                
+                //delete solution Letters for filtering:
+                solutionLetters.removeAll()
+                
+                DispatchQueue.main.async {
+                    //audioFX
+                    try? self.audioFX.openFile(file: "Magic", type: "wav")
+                }
+                
+                //updating UI after 1 second delay, to show the whole correct word
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.performSelector(onMainThread: #selector(self.updateUI), with: nil, waitUntilDone: false)
+                }
+            }
         }
     }
 

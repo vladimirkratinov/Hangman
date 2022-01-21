@@ -11,6 +11,7 @@ import AVFoundation
 struct AudioFX {
     
     var audioPlayer: AVAudioPlayer?
+    var muted = false
     
     mutating func openFile(file: String, type: String) throws {
         
@@ -22,7 +23,11 @@ struct AudioFX {
         let url = URL(fileURLWithPath: pathToSound)
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer?.volume = 0.4
+            if muted {
+                audioPlayer?.volume = 0
+            } else {
+                audioPlayer?.volume = 0.5
+            }
             audioPlayer?.play()
         } catch {
             print("\(file).\(type) was not found.")
@@ -37,7 +42,7 @@ struct AudioFX {
         switch selectedButton {
         //letterButton
         case 1:
-            let randomizer = Int.random(in: 1...4)
+            let randomizer = Int.random(in: 1...3)
             switch randomizer {
             case 1:
                 try? openFile(file: "WoodHit_1", type: "wav")

@@ -21,6 +21,8 @@
 		F7403F94279A7E120029C893 /* test_level4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7403F90279A7E120029C893 /* test_level4.txt */; };
 		F7403F95279A7E120029C893 /* test_level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7403F91279A7E120029C893 /* test_level3.txt */; };
 		F7403F98279A85870029C893 /* AudioFX.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7403F97279A85870029C893 /* AudioFX.swift */; };
+		F7403FAF279AC82D0029C893 /* Bomp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7403FAE279AC82D0029C893 /* Bomp.mp3 */; };
+		F7403FB6279ACA300029C893 /* Magic.wav in Resources */ = {isa = PBXBuildFile; fileRef = F7403FB5279ACA300029C893 /* Magic.wav */; };
 		F74CD49E279999C10028B993 /* launch.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F74CD49D279999C10028B993 /* launch.jpeg */; };
 		F74F6A6227967424008CE931 /* CookieMonster.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F74F6A6127967424008CE931 /* CookieMonster.jpeg */; };
 		F78C63542795939C00F047DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63532795939C00F047DF /* AppDelegate.swift */; };
@@ -73,6 +75,8 @@
 		F7403F90279A7E120029C893 /* test_level4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_level4.txt; sourceTree = "<group>"; };
 		F7403F91279A7E120029C893 /* test_level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_level3.txt; sourceTree = "<group>"; };
 		F7403F97279A85870029C893 /* AudioFX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFX.swift; sourceTree = "<group>"; };
+		F7403FAE279AC82D0029C893 /* Bomp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bomp.mp3; sourceTree = "<group>"; };
+		F7403FB5279ACA300029C893 /* Magic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Magic.wav; sourceTree = "<group>"; };
 		F74CD49D279999C10028B993 /* launch.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch.jpeg; sourceTree = "<group>"; };
 		F74F6A6127967424008CE931 /* CookieMonster.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CookieMonster.jpeg; sourceTree = "<group>"; };
 		F78C63502795939C00F047DF /* hangman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hangman.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +154,8 @@
 				F7403F87279A7CE30029C893 /* WoodHit_1.wav */,
 				F7403F88279A7CE30029C893 /* WoodHit_2.wav */,
 				F7403F89279A7CE30029C893 /* WoodHit_3.wav */,
+				F7403FAE279AC82D0029C893 /* Bomp.mp3 */,
+				F7403FB5279ACA300029C893 /* Magic.wav */,
 			);
 			path = AudioFX;
 			sourceTree = "<group>";
@@ -329,6 +335,8 @@
 				F7E8D3BF2797E778003D2F6D /* frame3.gif in Resources */,
 				F7E8D3CC2797E778003D2F6D /* frame1.jpg in Resources */,
 				F7E8D3C12797E778003D2F6D /* frame1.gif in Resources */,
+				F7403FAF279AC82D0029C893 /* Bomp.mp3 in Resources */,
+				F7403FB6279ACA300029C893 /* Magic.wav in Resources */,
 				F7403F92279A7E120029C893 /* test_level2.txt in Resources */,
 				F7D87D0827992FCD004880AF /* alphabet.txt in Resources */,
 				F7E8D3BE2797E778003D2F6D /* frame7.gif in Resources */,
@@ -572,14 +580,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 53V48VAMPV;
 				INFOPLIST_FILE = hangman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4;
+				MARKETING_VERSION = 0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vladimirkratinov.hangman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -594,14 +602,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 53V48VAMPV;
 				INFOPLIST_FILE = hangman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4;
+				MARKETING_VERSION = 0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vladimirkratinov.hangman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
