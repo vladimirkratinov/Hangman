@@ -15,7 +15,7 @@ struct LevelContent {
     var pictures = [String]()
     var animatedPictures = [String]()
     
-    var difficultyLevel: Int = 1
+    var difficultyLevel: Int = 4
     
     //MARK: - loadAlphabet
     
@@ -30,7 +30,7 @@ struct LevelContent {
     
     mutating func loadDifficultyLevel() {
         
-        if let levelFileURL = Bundle.main.url(forResource: "level\(difficultyLevel)", withExtension: "txt") {
+        if let levelFileURL = Bundle.main.url(forResource: "test_level\(difficultyLevel)", withExtension: "txt") {
             if let levelContents = try? String(contentsOf: levelFileURL) {
                 var lines = levelContents.components(separatedBy: "\n")
                 lines.shuffle()
@@ -64,11 +64,11 @@ struct LevelContent {
         if let items = try? fm.contentsOfDirectory(atPath: path) {
             
             for item in items {
-                if item.hasSuffix(".jpg") {
+                if item.hasPrefix("frame") && item.hasSuffix(".jpg") {
                     pictures.append(item)
                     pictures.sort()
                 }
-                if item.hasSuffix(".gif") {
+                if item.hasPrefix("frame") && item.hasSuffix(".gif") {
                     animatedPictures.append(item)
                     animatedPictures.sort()
                 }

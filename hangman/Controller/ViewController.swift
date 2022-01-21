@@ -7,8 +7,11 @@
 
 import UIKit
 import Gifu
+import AVFoundation
 
 class ViewController: UIViewController {
+    
+    var audioFX = AudioFX()
        
     var levelContent = LevelContent()
     
@@ -162,7 +165,7 @@ class ViewController: UIViewController {
                 letterButton.setTitle("W", for: .normal)
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
                 letterButton.layer.borderWidth = 1
-                letterButton.layer.cornerRadius = 25
+                letterButton.layer.cornerRadius = 15
                 letterButton.layer.shadowColor = UIColor.black.cgColor
                 letterButton.layer.shadowOffset = CGSize(width: 5, height: 5)
                 letterButton.layer.shadowRadius = 1
@@ -237,6 +240,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let pathToSound = Bundle.main.path(forResource: "background", ofType: "mp3")!
+//        let url = URL(fileURLWithPath: pathToSound)
+//
+//        do {
+//            audioPlayer = try AVAudioPlayer(contentsOf: url)
+//            audioPlayer?.play()
+//        } catch {
+//            print(error.localizedDescription)
+//        }
         
         performSelector(inBackground: #selector(gameLogic), with: nil)
         
@@ -325,6 +338,13 @@ class ViewController: UIViewController {
     //MARK: - restartTapped()
     
     @objc func restartTapped(_ sender: UIButton) {
+        //tag for audioFX
+        sender.tag = 2
+        //AudioFX
+        DispatchQueue.main.async {
+            try? self.audioFX.playAudio(sender)
+        }
+        
         sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
 
             UIView.animate(withDuration: 2.0,
@@ -339,34 +359,22 @@ class ViewController: UIViewController {
             )
         resetLevel()
     }
-    
-    //MARK: - gameOverTapped()
-    
-    func gameOverTapped(action: UIAlertAction) {
-        resetLevel()
-    }
-    
-    //MARK: - finishTapped
-    
-    func finishTapped(action: UIAlertAction) {
-        DispatchQueue.main.async { [weak self] in
-            self?.hintLabel.text = "Your score: \(self!.score)"
-            self?.currentAnswer.text = "Congratulations!"
-            self?.hangmanGIF.animate(withGIFNamed: self!.levelContent.animatedPictures[8])
-            self?.hangmanGIF.updateImageIfNeeded()
-            self?.hangmanJPG.alpha = 0
-            self?.hangmanGIF.alpha = 1
-            self?.buttonsView.isHidden = true
-        }
-    }
-   
+       
     //MARK: - letterTapped()
     
     @objc func letterTapped(_ sender: UIButton) {
+        //tag for audioFX
+        sender.tag = 1
+        //AudioFX
+        DispatchQueue.main.async {
+            try? self.audioFX.playAudio(sender)
+        }
         
         guard let buttonTitle = sender.titleLabel?.text else { return }
         activatedButtons.append(sender)
         usedLetters.append(buttonTitle)
+        
+        
         
         sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
         UIView.animate(withDuration: 1.0,
@@ -380,11 +388,10 @@ class ViewController: UIViewController {
                                    completion: { Void in()  }
         )
         
+        //hide tapped button after 0.3 sec
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            
             sender.isHidden = true
         }
-        
 //        print(levelContent.solutions)
 //        print(levelContent.hints)
 //        print("level: \(level)")
@@ -392,9 +399,9 @@ class ViewController: UIViewController {
 //        print(solutionLetters)
 //        print(levelContent.solutions)
         
+        //filtering solutins:
         let filteredSolutions = solutionLetters.filter {$0 == buttonTitle}
-        
-        //Checking filtered list for used letters
+        //Checking filtered list for used letters:
         if filteredSolutions.isEmpty {
             
             DispatchQueue.main.async {
@@ -402,7 +409,7 @@ class ViewController: UIViewController {
             }
         }
         
-        //MARK: - if button correct letter:
+        //MARK: - if button = correct letter:
         
         for (index, letter) in solutionWord.enumerated() {
             let strLetter = String(letter)
@@ -427,10 +434,16 @@ class ViewController: UIViewController {
 //                            print("LOAD DIFFICULTY +1")
             
                         } else {
-                            //GAME OVER! WIN!
-                            let ac = UIAlertController(title: "Congratulations!", message: "Winner", preferredStyle: .alert)
-                            ac.addAction(UIAlertAction(title: "Finish", style: .destructive, handler: finishTapped))
-                            present(ac, animated: true)
+                            //MARK: - GAME OVER (WIN)
+                            DispatchQueue.main.async { [weak self] in
+                                self?.hintLabel.text = "Your score: \(self!.score)"
+                                self?.currentAnswer.text = "WINNER!"
+                                self?.hangmanGIF.animate(withGIFNamed: self!.levelContent.animatedPictures[8])
+                                self?.hangmanGIF.updateImageIfNeeded()
+                                self?.hangmanJPG.alpha = 0
+                                self?.hangmanGIF.alpha = 1
+                                self?.buttonsView.isHidden = true
+                            }
                         }
                     }
                     
@@ -440,11 +453,11 @@ class ViewController: UIViewController {
                         
                         //delete solution Letters for filtering:
                         solutionLetters.removeAll()
-                    }
-
-                    //updating UI after 1 second delay, to show the whole correct word
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.performSelector(onMainThread: #selector(self.updateUI), with: nil, waitUntilDone: false)
+                        
+                        //updating UI after 1 second delay, to show the whole correct word
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.performSelector(onMainThread: #selector(self.updateUI), with: nil, waitUntilDone: false)
+                        }
                     }
                 }
             }
@@ -514,15 +527,27 @@ class ViewController: UIViewController {
                 self.nextPicturePart()
             }
         case 9:
-            //GAME OVER:
+            //MARK: - GAME OVER (LOST)
             animationPart()
-
-            let ac = UIAlertController(title: "GAME OVER", message: "You Lost :(", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Restart", style: .default, handler: gameOverTapped))
-            self.present(ac, animated: true)
-
+            
+            //audioFX
+            DispatchQueue.global(qos: .background).async {
+                try? self.audioFX.openFile(file: "DrumsetFalling", type: "mp3")
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.hintLabel.text = "Your score: \(self!.score)"
+                self?.currentAnswer.text = "You Lost!"
+                self?.hangmanGIF.animate(withGIFNamed: self!.levelContent.animatedPictures[8])
+                self?.hangmanGIF.updateImageIfNeeded()
+                self?.hangmanJPG.alpha = 0
+                self?.hangmanGIF.alpha = 1
+                self?.buttonsView.isHidden = true
+            }
+            
         default:
             counter = 0
         }
     }
+
 }
