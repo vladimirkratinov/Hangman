@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     
     var audioFX = AudioFX()
     var levelContent = LevelContent()
+    var menuController = MenuController()
     
     var hangmanGIF = GIFImageView()
     var hangmanJPG: UIImageView!
@@ -28,8 +29,10 @@ class ViewController: UIViewController {
     var letterButtons = [UIButton]()
     var activatedButtons = [UIButton]()
     
+    var muteButton = MuteButton()
+    var backButton = UIButton(type: .system)
+    
     var letterButton = HighlightedButtonOrange(type: .system)
-    var muteButton = HighlightedButtonRed(type: .system)
     var restartButton = HighlightedButtonRed(type: .system)
     var hintButton = HighlightedButtonRed(type: .system)
     
@@ -41,10 +44,12 @@ class ViewController: UIViewController {
     var hintWord = ""
     
     let buttonsView = UIView()
+    
+    var backImgName: String = "BACK"
 
     var backgroundImageView: UIImageView = {
         let backgroundImageView = UIImageView(frame: .zero)
-        backgroundImageView.image = UIImage(named: "BACK2")
+        backgroundImageView.image = UIImage(named: "BACK1")
         backgroundImageView.contentMode = .scaleToFill
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         return backgroundImageView
@@ -52,8 +57,9 @@ class ViewController: UIViewController {
     
     var insideIndex = 0
     var counter: Int = 0
+    var difficultLevelLabel: Int = 1
     
-    var hintCounter: Int = 99 {
+    var hintCounter: Int = 7 {
         didSet {
             hintButton.setTitle("Hint (\(hintCounter))", for: .normal)
         }
@@ -64,52 +70,52 @@ class ViewController: UIViewController {
             scoreLabel.text = "Score: \(score)"
         }
     }
+    
     var level: Int = 1 {
         didSet {
             levelLabel.text = "Level: \(level)"
         }
     }
-    
-    var difficulLevelLabel: Int = 1 {
-        didSet {
-            switch difficulLevelLabel {
-            case 1:
-                difficultyLabel.text = "EASY"
-            case 2:
-                difficultyLabel.text = "NORMAL"
-            case 3:
-                difficultyLabel.text = "HARD"
-            case 4:
-                difficultyLabel.text = "EXTREME"
-            default:
-                difficultyLabel.text = "EASY"
-            }
-        }
-    }
-    
+        
     //MARK: - loadView()
     
     override func loadView() {
         view = UIView()
-        
         view.insertSubview(backgroundImageView, at: 0)
         
         muteButton.translatesAutoresizingMaskIntoConstraints = false
         muteButton.setImage(UIImage(systemName: "speaker"), for: .normal)
+        muteButton.setImage(UIImage(systemName: "speaker.slash"), for: .selected)
         muteButton.layer.cornerRadius = 10
+        muteButton.tintColor = UIColor.black
+        muteButton.backgroundColor = UIColor.orange
+        //shadows
         muteButton.layer.shadowColor = UIColor.black.cgColor
         muteButton.layer.shadowOffset = CGSize(width: 5, height: 5)
         muteButton.layer.shadowRadius = 1
         muteButton.layer.shadowOpacity = 1.0
-        muteButton.tintColor = UIColor.white
-        muteButton.backgroundColor = UIColor.orange
-        
-        //shadows rasterization
         muteButton.layer.shouldRasterize = true
         muteButton.layer.rasterizationScale = UIScreen.main.scale
-        
+        //shadows
         muteButton.addTarget(self, action: #selector(muteTapped), for: .touchUpInside)
         view.addSubview(muteButton)
+        
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setTitle("<<", for: .normal)
+        backButton.titleLabel?.font = UIFont(name: "chalkduster", size: 20)
+        backButton.layer.cornerRadius = 10
+        backButton.tintColor = UIColor.black
+        backButton.backgroundColor = UIColor.orange
+        //shadows
+        backButton.layer.shadowColor = UIColor.black.cgColor
+        backButton.layer.shadowOffset = CGSize(width: 5, height: 5)
+        backButton.layer.shadowRadius = 1
+        backButton.layer.shadowOpacity = 1.0
+        backButton.layer.shouldRasterize = true
+        backButton.layer.rasterizationScale = UIScreen.main.scale
+        //shadows
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        view.addSubview(backButton)
         
         hangmanGIF.translatesAutoresizingMaskIntoConstraints = false
         hangmanGIF.alpha = 1
@@ -160,36 +166,30 @@ class ViewController: UIViewController {
         hintButton.translatesAutoresizingMaskIntoConstraints = false
         hintButton.setTitle("Hint (\(hintCounter))", for: .normal)
         hintButton.titleLabel?.font = UIFont(name: "chalkduster", size: 20)
+        hintButton.tintColor = UIColor.white
+        hintButton.backgroundColor = UIColor.orange
         hintButton.layer.cornerRadius = 10
         hintButton.layer.shadowColor = UIColor.black.cgColor
         hintButton.layer.shadowOffset = CGSize(width: 5, height: 5)
         hintButton.layer.shadowRadius = 1
         hintButton.layer.shadowOpacity = 1.0
-        
-        //shadows rasterization
         hintButton.layer.shouldRasterize = true
         hintButton.layer.rasterizationScale = UIScreen.main.scale
-        
-        hintButton.tintColor = UIColor.white
-        hintButton.backgroundColor = UIColor.orange
         hintButton.addTarget(self, action: #selector(hintTapped), for: .touchUpInside)
         view.addSubview(hintButton)
         
         restartButton.translatesAutoresizingMaskIntoConstraints = false
         restartButton.setTitle("Restart", for: .normal)
         restartButton.titleLabel?.font = UIFont(name: "chalkduster", size: 20)
+        restartButton.tintColor = UIColor.white
+        restartButton.backgroundColor = UIColor.orange
         restartButton.layer.cornerRadius = 10
         restartButton.layer.shadowColor = UIColor.black.cgColor
         restartButton.layer.shadowOffset = CGSize(width: 5, height: 5)
         restartButton.layer.shadowRadius = 1
         restartButton.layer.shadowOpacity = 1.0
-        
-        //shadows rasterization
         restartButton.layer.shouldRasterize = true
         restartButton.layer.rasterizationScale = UIScreen.main.scale
-        
-        restartButton.tintColor = UIColor.white
-        restartButton.backgroundColor = UIColor.orange
         restartButton.addTarget(self, action: #selector(restartTapped), for: .touchUpInside)
         view.addSubview(restartButton)
         
@@ -205,20 +205,17 @@ class ViewController: UIViewController {
                 letterButton = HighlightedButtonOrange(type: .system)
                 letterButton.setTitle("W", for: .normal)
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+                letterButton.titleLabel?.font = UIFont(name: "chalkduster", size: 30)
+                letterButton.tintColor = UIColor.black
+                letterButton.backgroundColor = customColor
                 letterButton.layer.borderWidth = 2
                 letterButton.layer.cornerRadius = 15
                 letterButton.layer.shadowColor = UIColor.black.cgColor
                 letterButton.layer.shadowOffset = CGSize(width: 5, height: 5)
                 letterButton.layer.shadowRadius = 1
                 letterButton.layer.shadowOpacity = 1.0
-                
-                //shadows rasterization
                 letterButton.layer.shouldRasterize = true
                 letterButton.layer.rasterizationScale = UIScreen.main.scale
-                
-                letterButton.titleLabel?.font = UIFont(name: "chalkduster", size: 30)
-                letterButton.tintColor = UIColor.black
-                letterButton.backgroundColor = customColor
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
                 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
@@ -230,6 +227,7 @@ class ViewController: UIViewController {
                 
                 //MARK: - borders
                 
+                backButton.layer.borderWidth = 2
                 muteButton.layer.borderWidth = 2
                 restartButton.layer.borderWidth = 2
                 hintButton.layer.borderWidth = 2
@@ -245,7 +243,6 @@ class ViewController: UIViewController {
 //                hintLabel.layer.borderWidth = 2
 //                restartButton.layer.borderWidth = 2
 //                hintButton.layer.borderWidth = 2
-                
             }
         }
         
@@ -258,8 +255,13 @@ class ViewController: UIViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
+            backButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            backButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            backButton.heightAnchor.constraint(equalToConstant: 40),
+            backButton.widthAnchor.constraint(equalToConstant: 40),
+            
             muteButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            muteButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 170),
+            muteButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             muteButton.heightAnchor.constraint(equalToConstant: 40),
             muteButton.widthAnchor.constraint(equalToConstant: 40),
             
@@ -290,9 +292,11 @@ class ViewController: UIViewController {
             
             currentAnswer.topAnchor.constraint(equalTo: hangmanGIF.bottomAnchor, constant: 60),
             currentAnswer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentAnswer.heightAnchor.constraint(equalToConstant: 50),
             
             hintLabel.topAnchor.constraint(equalTo: currentAnswer.bottomAnchor, constant: 10),
             hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            hintLabel.heightAnchor.constraint(equalToConstant: 30),
             
             hintButton.topAnchor.constraint(equalTo: buttonsView.bottomAnchor, constant: 20),
             hintButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: -70),
@@ -306,10 +310,17 @@ class ViewController: UIViewController {
             
             buttonsView.topAnchor.constraint(equalTo: hintLabel.bottomAnchor, constant: 20),
             buttonsView.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+            buttonsView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            buttonsView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             buttonsView.widthAnchor.constraint(equalToConstant: 350),
             buttonsView.heightAnchor.constraint(equalToConstant: 200)
-            
         ])
+    }
+    
+    //MARK: - viewWillAppear()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     //MARK: - viewDidLoad()
@@ -317,11 +328,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateLevelLabel()        
         performSelector(inBackground: #selector(gameLogic), with: nil)
-        
     }
     
-    //MARK: - gameLogic()
+    //MARK: - gameLogic
     
     @objc func gameLogic() {
             levelContent.loadImages()
@@ -329,7 +340,30 @@ class ViewController: UIViewController {
             performSelector(onMainThread: #selector(updateUI), with: nil, waitUntilDone: false)
     }
     
-    //MARK: - updateUI()
+    //MARK: - backButtonTapped
+    
+    @objc func backButtonTapped() {
+        self.navigationController?.popToRootViewController(animated: false)
+    }
+    
+    //MARK: - updateLevelLabel
+    
+    func updateLevelLabel() {
+        switch difficultLevelLabel {
+        case 1:
+            difficultyLabel.text = "EASY"
+        case 2:
+            difficultyLabel.text = "NORMAL"
+        case 3:
+            difficultyLabel.text = "HARD"
+        case 4:
+            difficultyLabel.text = "EXTREME"
+        default:
+            difficultyLabel.text = "EASY"
+        }
+    }
+    
+    //MARK: - updateUI
     
     @objc func updateUI() {
         
@@ -375,7 +409,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK: - resetLevel()
+    //MARK: - resetLevel
     
     func resetLevel() {
         hangmanGIF.stopAnimatingGIF()
@@ -387,11 +421,13 @@ class ViewController: UIViewController {
             self?.hangmanGIF.alpha = 0
             
             self?.level = 1
-            self?.levelContent.difficultyLevel = 1
-            self?.difficulLevelLabel = 1
+            self?.levelContent.difficultyLevel = self!.difficultLevelLabel
+            self?.difficultLevelLabel = self!.difficultLevelLabel
             self?.score = 0
             self?.counter = 0
             self?.hintCounter = 7
+            
+            self?.backgroundImageView.image = UIImage(named: "\(self!.backImgName)\(self!.counter + 1)")
             
             self?.levelContent.solutions.removeAll()
             self?.levelContent.hints.removeAll()
@@ -404,10 +440,11 @@ class ViewController: UIViewController {
             
             self?.buttonsView.isHidden = false
             self?.hintButton.isHidden = false
+            self?.hintButton.isEnabled = true
             }
         }
     
-    //MARK: - resetABCbuttons()
+    //MARK: - resetABCbuttons
     
     func resetABCbuttons() {
         let abc = levelContent.loadAlphabet()
@@ -417,7 +454,7 @@ class ViewController: UIViewController {
             }
     }
     
-    //MARK: - restartTapped()
+    //MARK: - restartTapped
     
     @objc func restartTapped(_ sender: UIButton) {
         //tag for audioFX
@@ -442,21 +479,21 @@ class ViewController: UIViewController {
         resetLevel()
     }
     
-    //MARK: - muteTapped()
+    //MARK: - muteTapped
     
-    @objc func muteTapped(_ sender: UIButton) {
+    @objc func muteTapped(_ sender: MuteButton) {
         if sender.isSelected {
-            muteButton.setImage(UIImage(systemName: "speaker"), for: .selected)
             sender.isSelected = false
+            audioFX.audioPlayer?.play()
             audioFX.muted = false
         } else {
-            muteButton.setImage(UIImage(systemName: "speaker.slash"), for: .selected)
             sender.isSelected = true
+            audioFX.audioPlayer?.stop()
             audioFX.muted = true
         }
     }
     
-    //MARK: - hintTapped()
+    //MARK: - hintTapped
     
     @objc func hintTapped(_ sender: UIButton) {
         
@@ -468,8 +505,9 @@ class ViewController: UIViewController {
         let abc = levelContent.loadAlphabet()
 
         //hide button when hints finished
-        if hintCounter < 2 {
-            sender.isHidden = true
+        if hintCounter <= 1 {
+            sender.isEnabled = false
+//            sender.isHidden = true
             //audioFX
             try? audioFX.openFile(file: "Bomp", type: "mp3")
         }
@@ -514,7 +552,7 @@ class ViewController: UIViewController {
         }
     }
        
-    //MARK: - letterTapped()
+    //MARK: - letterTapped
     
     @objc func letterTapped(_ sender: UIButton) {
         
@@ -606,47 +644,57 @@ class ViewController: UIViewController {
         
         switch counter {
         case 1:
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 2:
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.nextPicturePart()
             }
         case 3:
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 4:
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.nextPicturePart()
             }
         case 5:
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                 self.nextPicturePart()
             }
         case 6:
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 self.nextPicturePart()
             }
         case 7:
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 8:
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
 //                self.nextPicturePart()
 //            }
         case 9:
             //MARK: - GAME OVER (LOST)
+            
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             //audioFX
             try? audioFX.openFile(file: "DrumsetFalling", type: "mp3")
             
@@ -655,19 +703,11 @@ class ViewController: UIViewController {
             hintLabel.text = "Your score: \(score)"
             currentAnswer.text = "You Lost!"
             buttonsView.isHidden = true
-            hintButton.isHidden = true
-            
-//            NSLayoutConstraint.activate([
-//
-//                restartButton.topAnchor.constraint(equalTo: buttonsView.bottomAnchor, constant: 20),
-//                restartButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
-//                restartButton.widthAnchor.constraint(equalToConstant: 100),
-//                restartButton.heightAnchor.constraint(equalToConstant: 50),
-//            ])
-            
+            hintButton.isEnabled = false
             
         default:
             counter = 0
+            backgroundImageView.image = UIImage(named: "back1")
         }
     }
     
@@ -682,7 +722,7 @@ class ViewController: UIViewController {
                 //difficultyLevel + 1
                 if levelContent.difficultyLevel < 4 {
                     levelContent.difficultyLevel += 1
-                    difficulLevelLabel += 1
+                    difficultLevelLabel += 1
                     levelContent.loadDifficultyLevel()
 //                            print("LOAD DIFFICULTY +1")
     

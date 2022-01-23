@@ -31,6 +31,7 @@
 		F78C635B2795939D00F047DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F78C63592795939C00F047DF /* Main.storyboard */; };
 		F78C635D279593A700F047DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F78C635C279593A700F047DF /* Assets.xcassets */; };
 		F78C6360279593A700F047DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F78C635E279593A700F047DF /* LaunchScreen.storyboard */; };
+		F79CDE24279D13700064C56F /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CDE23279D13700064C56F /* MenuController.swift */; };
 		F7D5BDDF2799179D00097240 /* LevelContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5BDDE2799179D00097240 /* LevelContent.swift */; };
 		F7D87D0827992FCD004880AF /* alphabet.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D0627992FCD004880AF /* alphabet.txt */; };
 		F7D87D0927992FCD004880AF /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D0727992FCD004880AF /* level1.txt */; };
@@ -87,6 +88,7 @@
 		F78C635C279593A700F047DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F78C635F279593A700F047DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F78C6361279593A700F047DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F79CDE23279D13700064C56F /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		F7D5BDDE2799179D00097240 /* LevelContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelContent.swift; sourceTree = "<group>"; };
 		F7D87D0627992FCD004880AF /* alphabet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = alphabet.txt; sourceTree = "<group>"; };
 		F7D87D0727992FCD004880AF /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				F78C63572795939C00F047DF /* ViewController.swift */,
+				F79CDE23279D13700064C56F /* MenuController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F79CDE24279D13700064C56F /* MenuController.swift in Sources */,
 				F7403F98279A85870029C893 /* AudioFX.swift in Sources */,
 				F7E8D3F527981C2F003D2F6D /* CustomButtons.swift in Sources */,
 				F78C63582795939C00F047DF /* ViewController.swift in Sources */,
