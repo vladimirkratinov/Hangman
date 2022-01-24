@@ -81,6 +81,7 @@ class ViewController: UIViewController {
     
     override func loadView() {
         view = UIView()
+        view.sizeToFit()
         view.insertSubview(backgroundImageView, at: 0)
         
         muteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -89,14 +90,14 @@ class ViewController: UIViewController {
         muteButton.layer.cornerRadius = 10
         muteButton.tintColor = UIColor.black
         muteButton.backgroundColor = UIColor.orange
-        //shadows
+        //shadows {
         muteButton.layer.shadowColor = UIColor.black.cgColor
         muteButton.layer.shadowOffset = CGSize(width: 5, height: 5)
         muteButton.layer.shadowRadius = 1
         muteButton.layer.shadowOpacity = 1.0
         muteButton.layer.shouldRasterize = true
         muteButton.layer.rasterizationScale = UIScreen.main.scale
-        //shadows
+        //shadows }
         muteButton.addTarget(self, action: #selector(muteTapped), for: .touchUpInside)
         view.addSubview(muteButton)
         
@@ -106,14 +107,14 @@ class ViewController: UIViewController {
         backButton.layer.cornerRadius = 10
         backButton.tintColor = UIColor.black
         backButton.backgroundColor = UIColor.orange
-        //shadows
+        //shadows {
         backButton.layer.shadowColor = UIColor.black.cgColor
         backButton.layer.shadowOffset = CGSize(width: 5, height: 5)
         backButton.layer.shadowRadius = 1
         backButton.layer.shadowOpacity = 1.0
         backButton.layer.shouldRasterize = true
         backButton.layer.rasterizationScale = UIScreen.main.scale
-        //shadows
+        //shadows }
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         view.addSubview(backButton)
         
@@ -193,17 +194,17 @@ class ViewController: UIViewController {
         restartButton.addTarget(self, action: #selector(restartTapped), for: .touchUpInside)
         view.addSubview(restartButton)
         
+        //buttonsView
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonsView)
         
-        let width = 50
+        let width = 55
         let height = 50
-        
+
         for row in 0..<4 {
             for column in 0..<7 {
                 let customColor = UIColor(red: 0.10, green: 0.74, blue: 0.61, alpha: 1.00)
                 letterButton = HighlightedButtonOrange(type: .system)
-                letterButton.setTitle("W", for: .normal)
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
                 letterButton.titleLabel?.font = UIFont(name: "chalkduster", size: 30)
                 letterButton.tintColor = UIColor.black
@@ -216,11 +217,13 @@ class ViewController: UIViewController {
                 letterButton.layer.shadowOpacity = 1.0
                 letterButton.layer.shouldRasterize = true
                 letterButton.layer.rasterizationScale = UIScreen.main.scale
+//                letterButton.setContentHuggingPriority(UILayoutPriority(1), for: .horizontal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
                 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
                 
+//                buttonsView.setContentHuggingPriority(UILayoutPriority(1), for: .horizontal)
                 buttonsView.addSubview(letterButton)
                 letterButtons.append(letterButton)
                 
@@ -233,16 +236,16 @@ class ViewController: UIViewController {
                 hintButton.layer.borderWidth = 2
                 
                 //optional borders:
-//                buttonsView.layer.borderWidth = 2
-//                hangmanGIF.layer.borderWidth = 2
-//                hangmanJPG.layer.borderWidth = 2
-//                difficultyLabel.layer.borderWidth = 2
-//                levelLabel.layer.borderWidth = 2
-//                scoreLabel.layer.borderWidth = 2
-//                currentAnswer.layer.borderWidth = 2
-//                hintLabel.layer.borderWidth = 2
-//                restartButton.layer.borderWidth = 2
-//                hintButton.layer.borderWidth = 2
+                buttonsView.layer.borderWidth = 2
+                hangmanGIF.layer.borderWidth = 2
+                hangmanJPG.layer.borderWidth = 2
+                difficultyLabel.layer.borderWidth = 2
+                levelLabel.layer.borderWidth = 2
+                scoreLabel.layer.borderWidth = 2
+                currentAnswer.layer.borderWidth = 2
+                hintLabel.layer.borderWidth = 2
+                restartButton.layer.borderWidth = 2
+                hintButton.layer.borderWidth = 2
             }
         }
         
@@ -312,7 +315,6 @@ class ViewController: UIViewController {
             buttonsView.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
             buttonsView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             buttonsView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-            buttonsView.widthAnchor.constraint(equalToConstant: 350),
             buttonsView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
