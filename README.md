@@ -1,4 +1,4 @@
-# HangmanGame 🎮
+# Hangman Game 🎮
 
 A simple hangman game: guess a word, don't die.
 
