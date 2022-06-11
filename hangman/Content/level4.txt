@@ -1,4 +1,7 @@
-KUMMERSPECK: Kummerspeck
-SCHADENFREUDE: Schadenfreude
-TORSCHLUSSPANIK: Torschlusspanik
-ERKLARUNGSNOT: Erklärungsnot
+ERKLARUNGSNOT: explanation poverty
+PURZELBAUM: tumble tree
+ZUNGENBRECHER: tongue breaker
+SCHATTENPARKER: shadow parker
+KUDDELMUDDEL: muddled mess
+LUFTSCHLOSS: air castle
+TORSCHLUSSPANIK: closing-gate panic
