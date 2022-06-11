@@ -1,5 +1,4 @@
 KUMMERSPECK: Kummerspeck
 SCHADENFREUDE: Schadenfreude
-FERNWEH: Fernweh
 TORSCHLUSSPANIK: Torschlusspanik
 ERKLARUNGSNOT: Erklärungsnot

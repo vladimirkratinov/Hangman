@@ -230,22 +230,22 @@ class ViewController: UIViewController {
                 
                 //MARK: - borders
                 
-                backButton.layer.borderWidth = 2
-                muteButton.layer.borderWidth = 2
-                restartButton.layer.borderWidth = 2
-                hintButton.layer.borderWidth = 2
+//                backButton.layer.borderWidth = 2
+//                muteButton.layer.borderWidth = 2
+//                restartButton.layer.borderWidth = 2
+//                hintButton.layer.borderWidth = 2
                 
                 //optional borders:
-                buttonsView.layer.borderWidth = 2
-                hangmanGIF.layer.borderWidth = 2
-                hangmanJPG.layer.borderWidth = 2
-                difficultyLabel.layer.borderWidth = 2
-                levelLabel.layer.borderWidth = 2
-                scoreLabel.layer.borderWidth = 2
-                currentAnswer.layer.borderWidth = 2
-                hintLabel.layer.borderWidth = 2
-                restartButton.layer.borderWidth = 2
-                hintButton.layer.borderWidth = 2
+//                buttonsView.layer.borderWidth = 2
+//                hangmanGIF.layer.borderWidth = 2
+//                hangmanJPG.layer.borderWidth = 2
+//                difficultyLabel.layer.borderWidth = 2
+//                levelLabel.layer.borderWidth = 2
+//                scoreLabel.layer.borderWidth = 2
+//                currentAnswer.layer.borderWidth = 2
+//                hintLabel.layer.borderWidth = 2
+//                restartButton.layer.borderWidth = 2
+//                hintButton.layer.borderWidth = 2
             }
         }
         
@@ -507,7 +507,7 @@ class ViewController: UIViewController {
         let abc = levelContent.loadAlphabet()
 
         //hide button when hints finished
-        if hintCounter <= 1 {
+        if hintCounter < 1 {
             sender.isEnabled = false
 //            sender.isHidden = true
             //audioFX
@@ -646,49 +646,49 @@ class ViewController: UIViewController {
         
         switch counter {
         case 1:
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 2:
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.nextPicturePart()
             }
         case 3:
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 4:
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.nextPicturePart()
             }
         case 5:
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                 self.nextPicturePart()
             }
         case 6:
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 self.nextPicturePart()
             }
         case 7:
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 8:
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
 //                self.nextPicturePart()
@@ -696,7 +696,7 @@ class ViewController: UIViewController {
         case 9:
             //MARK: - GAME OVER (LOST)
             
-            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             //audioFX
             try? audioFX.openFile(file: "DrumsetFalling", type: "mp3")
             
