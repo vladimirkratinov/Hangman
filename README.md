@@ -32,6 +32,8 @@ sudo gem install ffi
 
 • Mute music/soundFX button
 
+-- Optimized for iPhone 12 Pro Max!
+
 # Screenshots: 📷
 
 ![screen1](https://user-images.githubusercontent.com/78992253/173176223-b25596a2-2c19-49a1-a729-ba01bfbad537.png)
