@@ -1,8 +1,8 @@
-# HangmanGame
+# HangmanGame 🎮
 
 A simple hangman game: guess a word, don't die.
 
-# Installation:
+# Installation: 📝
 
 1. open terminal:
 
@@ -18,7 +18,7 @@ Mac M1 FIX:
 sudo gem install ffi
 ```
 
-# Features:
+# Features: 🚀
 
 • Different difficulty levels
 
@@ -32,7 +32,7 @@ sudo gem install ffi
 
 • Mute music/soundFX button
 
-# Screenshots:
+# Screenshots: 📷
 
 ![screen1](https://user-images.githubusercontent.com/78992253/173176223-b25596a2-2c19-49a1-a729-ba01bfbad537.png)
 ![screen2](https://user-images.githubusercontent.com/78992253/173176294-834da72f-cf05-4413-9059-5f8f33835a15.png)
