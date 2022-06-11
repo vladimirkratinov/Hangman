@@ -1,6 +1,22 @@
 # HangmanGame
 
-A simple hangman game: guess words using a hint! Don't die.
+A simple hangman game: guess a word, don't die.
+
+# Installation:
+
+1. open terminal:
+
+```sh
+cd project_directory
+pod install
+```
+2. open hangman.xcworkspace file in directory
+-----------
+Mac M1 FIX: 
+
+```sh
+sudo gem install ffi
+```
 
 # Features:
 
