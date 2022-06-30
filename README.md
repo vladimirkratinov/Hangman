@@ -1,6 +1,6 @@
 # Hangman Game 🎮
 
-A simple hangman game: guess a word, don't die.
+A classic hangman game: guess a word, don't die.
 
 # Installation: 📝
 
