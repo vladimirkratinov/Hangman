@@ -16,12 +16,11 @@ struct LevelContent {
     var animatedPictures = [String]()
     
     var difficultyLevel: Int = 1
+    var currentLevel: String = ""
     
     //MARK: - loadAlphabet
     
     func loadAlphabet() -> [String] {
-        let alphabetlFileURL = Bundle.main.url(forResource: "alphabet", withExtension: "txt")
-        let alphabet = try! String(contentsOf: alphabetlFileURL!)
         let letter = alphabet.components(separatedBy: ",")
         return letter
     }
@@ -30,28 +29,30 @@ struct LevelContent {
     
     mutating func loadDifficultyLevel() {
         
-        if let levelFileURL = Bundle.main.url(forResource: "level\(difficultyLevel)", withExtension: "txt") {
-            if let levelContents = try? String(contentsOf: levelFileURL) {
-                var lines = levelContents.components(separatedBy: "\n")
-                lines.shuffle()
-//                lines.sort()
-//                print(lines)
-//                print(lines.count)
-                
-                for line in lines {
-                    let parts = line.components(separatedBy: ": ")
-                    let answer = parts[0]
-                    let hint = parts[1]
-//                    print(answer ?? "answer-NIL","-", hint ?? "hint-NIL")
-                    
-                    solutions.append(answer)
-                    hints.append(hint)
-                    
-                    
-                }
-            }
+        switch difficultyLevel {
+        case 1:
+            currentLevel = level1
+        case 2:
+            currentLevel = level2
+        case 3:
+            currentLevel = level3
+        case 4:
+            currentLevel = level4
+        default:
+            currentLevel = level1
         }
-//        print("loadDifficultyLevel method: WORKED")
+        
+        var lines = currentLevel.components(separatedBy: "\n")
+        lines.shuffle()
+        
+        for line in lines {
+            let parts = line.components(separatedBy: ": ")
+            let answer = parts[0]
+            let hint = parts[1]
+            
+            solutions.append(answer)
+            hints.append(hint)
+        }
     }
     
     
@@ -76,9 +77,3 @@ struct LevelContent {
         }
     }    
 }
-
-//extension Collection where Indices.Iterator.Element == Index {
-//    public subscript(safe index: Index) -> Iterator.Element? {
-//        return (startIndex <= index && index < endIndex) ? self[index] : nil
-//    }
-//}

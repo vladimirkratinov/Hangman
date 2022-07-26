@@ -16,15 +16,12 @@
 		F7403F8A279A7CE30029C893 /* WoodHit_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = F7403F87279A7CE30029C893 /* WoodHit_1.wav */; };
 		F7403F8B279A7CE30029C893 /* WoodHit_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = F7403F88279A7CE30029C893 /* WoodHit_2.wav */; };
 		F7403F8C279A7CE30029C893 /* WoodHit_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = F7403F89279A7CE30029C893 /* WoodHit_3.wav */; };
-		F7403F92279A7E120029C893 /* test_level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7403F8E279A7E120029C893 /* test_level2.txt */; };
-		F7403F93279A7E120029C893 /* test_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7403F8F279A7E120029C893 /* test_level1.txt */; };
-		F7403F94279A7E120029C893 /* test_level4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7403F90279A7E120029C893 /* test_level4.txt */; };
-		F7403F95279A7E120029C893 /* test_level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7403F91279A7E120029C893 /* test_level3.txt */; };
 		F7403F98279A85870029C893 /* AudioFX.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7403F97279A85870029C893 /* AudioFX.swift */; };
 		F7403FAF279AC82D0029C893 /* Bomp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7403FAE279AC82D0029C893 /* Bomp.mp3 */; };
 		F7403FB6279ACA300029C893 /* Magic.wav in Resources */ = {isa = PBXBuildFile; fileRef = F7403FB5279ACA300029C893 /* Magic.wav */; };
 		F74CD49E279999C10028B993 /* launchscreen_picture.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F74CD49D279999C10028B993 /* launchscreen_picture.jpeg */; };
 		F74F6A6227967424008CE931 /* CookieMonster.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F74F6A6127967424008CE931 /* CookieMonster.jpeg */; };
+		F76865692890A40D007E2407 /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76865682890A40D007E2407 /* Levels.swift */; };
 		F78C63542795939C00F047DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63532795939C00F047DF /* AppDelegate.swift */; };
 		F78C63562795939C00F047DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63552795939C00F047DF /* SceneDelegate.swift */; };
 		F78C63582795939C00F047DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C63572795939C00F047DF /* ViewController.swift */; };
@@ -33,11 +30,6 @@
 		F78C6360279593A700F047DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F78C635E279593A700F047DF /* LaunchScreen.storyboard */; };
 		F79CDE24279D13700064C56F /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79CDE23279D13700064C56F /* MenuController.swift */; };
 		F7D5BDDF2799179D00097240 /* LevelContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5BDDE2799179D00097240 /* LevelContent.swift */; };
-		F7D87D0827992FCD004880AF /* alphabet.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D0627992FCD004880AF /* alphabet.txt */; };
-		F7D87D0927992FCD004880AF /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D0727992FCD004880AF /* level1.txt */; };
-		F7D87D12279942D1004880AF /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D11279942D1004880AF /* level2.txt */; };
-		F7D87D1B27996B8D004880AF /* level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D1927996B8D004880AF /* level3.txt */; };
-		F7D87D1C27996B8D004880AF /* level4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F7D87D1A27996B8D004880AF /* level4.txt */; };
 		F7E8D3BB2797E778003D2F6D /* frame5.gif in Resources */ = {isa = PBXBuildFile; fileRef = F7E8D3A82797E778003D2F6D /* frame5.gif */; };
 		F7E8D3BC2797E778003D2F6D /* frame4.gif in Resources */ = {isa = PBXBuildFile; fileRef = F7E8D3A92797E778003D2F6D /* frame4.gif */; };
 		F7E8D3BD2797E778003D2F6D /* frame6.gif in Resources */ = {isa = PBXBuildFile; fileRef = F7E8D3AA2797E778003D2F6D /* frame6.gif */; };
@@ -71,15 +63,12 @@
 		F7403F87279A7CE30029C893 /* WoodHit_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WoodHit_1.wav; sourceTree = "<group>"; };
 		F7403F88279A7CE30029C893 /* WoodHit_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WoodHit_2.wav; sourceTree = "<group>"; };
 		F7403F89279A7CE30029C893 /* WoodHit_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WoodHit_3.wav; sourceTree = "<group>"; };
-		F7403F8E279A7E120029C893 /* test_level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_level2.txt; sourceTree = "<group>"; };
-		F7403F8F279A7E120029C893 /* test_level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_level1.txt; sourceTree = "<group>"; };
-		F7403F90279A7E120029C893 /* test_level4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_level4.txt; sourceTree = "<group>"; };
-		F7403F91279A7E120029C893 /* test_level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_level3.txt; sourceTree = "<group>"; };
 		F7403F97279A85870029C893 /* AudioFX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFX.swift; sourceTree = "<group>"; };
 		F7403FAE279AC82D0029C893 /* Bomp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bomp.mp3; sourceTree = "<group>"; };
 		F7403FB5279ACA300029C893 /* Magic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Magic.wav; sourceTree = "<group>"; };
 		F74CD49D279999C10028B993 /* launchscreen_picture.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launchscreen_picture.jpeg; sourceTree = "<group>"; };
 		F74F6A6127967424008CE931 /* CookieMonster.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CookieMonster.jpeg; sourceTree = "<group>"; };
+		F76865682890A40D007E2407 /* Levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
 		F78C63502795939C00F047DF /* hangman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hangman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F78C63532795939C00F047DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F78C63552795939C00F047DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,11 +79,6 @@
 		F78C6361279593A700F047DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F79CDE23279D13700064C56F /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		F7D5BDDE2799179D00097240 /* LevelContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelContent.swift; sourceTree = "<group>"; };
-		F7D87D0627992FCD004880AF /* alphabet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = alphabet.txt; sourceTree = "<group>"; };
-		F7D87D0727992FCD004880AF /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
-		F7D87D11279942D1004880AF /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
-		F7D87D1927996B8D004880AF /* level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level3.txt; sourceTree = "<group>"; };
-		F7D87D1A27996B8D004880AF /* level4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level4.txt; sourceTree = "<group>"; };
 		F7E8D3A82797E778003D2F6D /* frame5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = frame5.gif; sourceTree = "<group>"; };
 		F7E8D3A92797E778003D2F6D /* frame4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = frame4.gif; sourceTree = "<group>"; };
 		F7E8D3AA2797E778003D2F6D /* frame6.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = frame6.gif; sourceTree = "<group>"; };
@@ -203,15 +187,6 @@
 				F7E8D3B12797E778003D2F6D /* jpg */,
 				F74F6A6127967424008CE931 /* CookieMonster.jpeg */,
 				F74CD49D279999C10028B993 /* launchscreen_picture.jpeg */,
-				F7D87D0627992FCD004880AF /* alphabet.txt */,
-				F7D87D0727992FCD004880AF /* level1.txt */,
-				F7D87D11279942D1004880AF /* level2.txt */,
-				F7D87D1927996B8D004880AF /* level3.txt */,
-				F7D87D1A27996B8D004880AF /* level4.txt */,
-				F7403F8F279A7E120029C893 /* test_level1.txt */,
-				F7403F8E279A7E120029C893 /* test_level2.txt */,
-				F7403F91279A7E120029C893 /* test_level3.txt */,
-				F7403F90279A7E120029C893 /* test_level4.txt */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -220,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				F7D5BDDE2799179D00097240 /* LevelContent.swift */,
+				F76865682890A40D007E2407 /* Levels.swift */,
 				F7403F97279A85870029C893 /* AudioFX.swift */,
 			);
 			path = Model;
@@ -340,8 +316,6 @@
 				F7E8D3C12797E778003D2F6D /* frame1.gif in Resources */,
 				F7403FAF279AC82D0029C893 /* Bomp.mp3 in Resources */,
 				F7403FB6279ACA300029C893 /* Magic.wav in Resources */,
-				F7403F92279A7E120029C893 /* test_level2.txt in Resources */,
-				F7D87D0827992FCD004880AF /* alphabet.txt in Resources */,
 				F7E8D3BE2797E778003D2F6D /* frame7.gif in Resources */,
 				F7403F84279A7C570029C893 /* DrumsetFalling.mp3 in Resources */,
 				F7E8D3BB2797E778003D2F6D /* frame5.gif in Resources */,
@@ -354,20 +328,14 @@
 				F7E8D3BD2797E778003D2F6D /* frame6.gif in Resources */,
 				F7E8D3C62797E778003D2F6D /* frame5.jpg in Resources */,
 				F7403F72279A76460029C893 /* Cowbell.mp3 in Resources */,
-				F7403F93279A7E120029C893 /* test_level1.txt in Resources */,
 				F7403F66279A67980029C893 /* background.mp3 in Resources */,
 				F7403F8A279A7CE30029C893 /* WoodHit_1.wav in Resources */,
-				F7D87D1B27996B8D004880AF /* level3.txt in Resources */,
 				F78C635B2795939D00F047DF /* Main.storyboard in Resources */,
 				F7E8D3C52797E778003D2F6D /* frame8.jpg in Resources */,
-				F7403F95279A7E120029C893 /* test_level3.txt in Resources */,
-				F7D87D0927992FCD004880AF /* level1.txt in Resources */,
 				F7E8D3C82797E778003D2F6D /* frame6.jpg in Resources */,
 				F74F6A6227967424008CE931 /* CookieMonster.jpeg in Resources */,
 				F7E8D3C72797E778003D2F6D /* frame4.jpg in Resources */,
 				F7403F8C279A7CE30029C893 /* WoodHit_3.wav in Resources */,
-				F7D87D1C27996B8D004880AF /* level4.txt in Resources */,
-				F7D87D12279942D1004880AF /* level2.txt in Resources */,
 				F7E8D3CA2797E778003D2F6D /* frame3.jpg in Resources */,
 				F7E8D3C42797E778003D2F6D /* frame9.jpg in Resources */,
 				F7E8D3C32797E778003D2F6D /* frame8.gif in Resources */,
@@ -375,7 +343,6 @@
 				F7E8D3BC2797E778003D2F6D /* frame4.gif in Resources */,
 				F74CD49E279999C10028B993 /* launchscreen_picture.jpeg in Resources */,
 				F7E8D3C92797E778003D2F6D /* frame7.jpg in Resources */,
-				F7403F94279A7E120029C893 /* test_level4.txt in Resources */,
 				F7403F6C279A6DA50029C893 /* Boing.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F76865692890A40D007E2407 /* Levels.swift in Sources */,
 				F79CDE24279D13700064C56F /* MenuController.swift in Sources */,
 				F7403F98279A85870029C893 /* AudioFX.swift in Sources */,
 				F7E8D3F527981C2F003D2F6D /* CustomButtons.swift in Sources */,

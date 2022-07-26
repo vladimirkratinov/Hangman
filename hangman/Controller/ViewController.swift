@@ -646,49 +646,49 @@ class ViewController: UIViewController {
         
         switch counter {
         case 1:
-//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 2:
-//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.nextPicturePart()
             }
         case 3:
-//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 4:
-//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.nextPicturePart()
             }
         case 5:
-//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                 self.nextPicturePart()
             }
         case 6:
-//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 self.nextPicturePart()
             }
         case 7:
-//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
             animationPart()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.nextPicturePart()
             }
         case 8:
-//            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter + 1)")
+            backgroundImageView.image = UIImage(named: "\(backImgName)\(counter)")
             animationPart()
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
 //                self.nextPicturePart()
